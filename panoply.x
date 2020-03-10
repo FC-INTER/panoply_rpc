@@ -1,9 +1,9 @@
 struct mail {
-	char[128] email;
+	char email[128] ;
 };
 
 struct mot_de_passe{
-	char [32] mdp;
+	char mdp[32] ;
 };
 
 struct date {
@@ -29,13 +29,13 @@ struct identifiants{
 struct compte {
 	struct mail email;
 	struct mot_de_passe mdp;
-	char[32] nom;
-	char[32] prenom;
+	char nom[32];
+	char prenom[32];
 	struct date date_de_naissance;
 	int telephone;
-	char[64] profession;
-	char[32] pays;
-	char[6] code_promo;
+	char profession[64];
+	char pays[32];
+	char code_promo[6];
 	connu_panoply connaissance;
 };
 
@@ -45,10 +45,18 @@ struct historiqueCommande {
 };
 
 
+
+struct article {
+    char type[50]
+};
+
+
 program SERVICE_PANOPLY{
     version SERVICE_VERSION_1 {
         compte CREATE_ACCOUNT() = 1;
         int LOG_IN(identifiants) = 2;
+        article BUY() = 3;
+        article RENT() = 4;
         
     } = 1;
 } = 0x20000022;
