@@ -21,6 +21,11 @@ enum connu_panoply {
 	Autre
 };
 
+struct identifiants{
+	struct mail email;
+	struct mot_de_passe mdp;
+};
+
 struct compte {
 	struct mail email;
 	struct mot_de_passe mdp;
@@ -32,7 +37,6 @@ struct compte {
 	char[32] pays;
 	char[6] code_promo;
 	connu_panoply connaissance;
-	
 };
 
 struct historiqueCommande {
@@ -44,6 +48,7 @@ struct historiqueCommande {
 program SERVICE_PANOPLY{
     version SERVICE_VERSION_1 {
         compte CREATE_ACCOUNT() = 1;
+        int LOG_IN(identifiants) = 2;
         
     } = 1;
 } = 0x20000022;
