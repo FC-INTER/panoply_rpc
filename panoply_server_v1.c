@@ -5,11 +5,13 @@
  */
 
 #include "panoply.h"
-
-panoply *
-init_1_svc(panoply *argp, struct svc_req *rqstp)
+#include <string.h>
+panoply * init_1_svc(panoply *argp, struct svc_req *rqstp)          //initialize the database                                   returns the initialised database
 {
 	static panoply  result;
+
+    /**/
+
 
     /*init abonnements*/
     argp->abonnements.nb_different_abonnement=4;
@@ -37,32 +39,6 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         strcpy(argp->abonnements.abonnements[0].type_abo,"A la folie");
         argp->abonnements.abonnements[0].prix_abo=319;
         argp->abonnements.abonnements[0].credit_abo=8;
-
-    /*enum point_livraison{
-    Paris_Neuilly_Boulogne = 1,
-    Rest_of_France = 2,
-    Belgium = 3,
-    UK = 4
-};
-
-struct article {
-    int id_article;
-    char nom[32];
-    int taille[20];
-    enum point_livraison pt_livraison;
-    struct date date_livraison;
-    int location;
-    int prix_location;
-    enum collection collection_reference;
-    enum brand brand_reference;
-    int credit;
-    int stock;
-};
-
-struct article_list{
-    struct article article[150];
-    int nb_different_article;
-};*/
 
     /*init articles*/
     argp->articles.
@@ -94,12 +70,11 @@ struct article_list{
 
     /*init commandes*/
     arpg->commandes.
-
+    
 	return &result;
 }
 
-compte *
-create_account_1_svc(void *argp, struct svc_req *rqstp)
+compte * create_account_1_svc(void *argp, struct svc_req *rqstp)    //create an account and add it to the database               returns an account
 {
 	static compte  result;
 
@@ -110,8 +85,7 @@ create_account_1_svc(void *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
+int * log_in_1_svc(identifiants *argp, struct svc_req *rqstp)       /*check if the log in exists                                 returns 0 or -1 if error */
 {
 	static int  result;
 
@@ -122,8 +96,7 @@ log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-list_all_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
+int * list_all_collection_1_svc(list_collection *argp, struct svc_req *rqstp)   /*display every type of collection                           returns the number of element or -1 if error */
 {
 	static int  result;
 
@@ -134,8 +107,7 @@ list_all_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-list_all_collection_clothes_1_svc(list_collection *argp, struct svc_req *rqstp)
+int * list_all_collection_clothes_1_svc(list_collection *argp, struct svc_req *rqstp)   /*display every clothes for every type of collection         returns the number of clothes or -1 if error */
 {
 	static int  result;
 
@@ -146,8 +118,7 @@ list_all_collection_clothes_1_svc(list_collection *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-list_collection *
-add_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
+list_collection * add_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)   /*add an cloth to a collection                               returns the list of all different collection */
 {
 	static list_collection  result;
 
@@ -158,8 +129,7 @@ add_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-list_collection *
-remove_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
+list_collection * remove_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)    /*remove a cloth from a collection                           returns the list of all different collection */
 {
 	static list_collection  result;
 
@@ -170,8 +140,7 @@ remove_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-list_type_abo_1_svc(list_abonnement *argp, struct svc_req *rqstp)
+int * list_type_abo_1_svc(list_abonnement *argp, struct svc_req *rqstp)     /*list every subscription                                    returns the number of element or -1 if error */
 {
 	static int  result;
 
@@ -182,8 +151,7 @@ list_type_abo_1_svc(list_abonnement *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-compte *
-affecter_abo_client_1_svc(compte *argp, struct svc_req *rqstp)
+compte * affecter_abo_client_1_svc(compte *argp, struct svc_req *rqstp)     /*set the subscription of an account                         returns an account */
 {
 	static compte  result;
 
@@ -194,8 +162,7 @@ affecter_abo_client_1_svc(compte *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-compte *
-modif_abo_1_svc(compte *argp, struct svc_req *rqstp)
+compte * modif_abo_1_svc(compte *argp, struct svc_req *rqstp)           /*edit account subsciption                                   returns 0 or -1 if error */
 {
 	static compte  result;
 
@@ -206,8 +173,7 @@ modif_abo_1_svc(compte *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-list_abonnement *
-add_subscription_1_svc(list_abonnement *argp, struct svc_req *rqstp)
+list_abonnement * add_subscription_1_svc(list_abonnement *argp, struct svc_req *rqstp)      /*add a new subscription to the list                         returns a subscription */
 {
 	static list_abonnement  result;
 
@@ -218,9 +184,8 @@ add_subscription_1_svc(list_abonnement *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-display_abonnement_1_svc(abonnement *argp, struct svc_req *rqstp)
-{
+int * display_abonnement_1_svc(abonnement *argp, struct svc_req *rqstp)         /*display the number of subscription for every               returns 0 or -1 if error */
+{                                                                               /*subscription type 
 	static int  result;
 
 	/*
@@ -230,8 +195,7 @@ display_abonnement_1_svc(abonnement *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-article_list *
-add_article_1_svc(article_list *argp, struct svc_req *rqstp)
+article_list * add_article_1_svc(article_list *argp, struct svc_req *rqstp)     /*add an article to the list of article                     returns the new list of article */
 {
 	static article_list  result;
 
@@ -242,8 +206,7 @@ add_article_1_svc(article_list *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-article_list *
-update_article_1_svc(article_list *argp, struct svc_req *rqstp)
+article_list * update_article_1_svc(article_list *argp, struct svc_req *rqstp)      /*update the list of articles                               returns the new list of article */
 {
 	static article_list  result;
 
@@ -254,8 +217,7 @@ update_article_1_svc(article_list *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-article_list *
-delete_article_1_svc(article_list *argp, struct svc_req *rqstp)
+article_list * delete_article_1_svc(article_list *argp, struct svc_req *rqstp)      /*remove an article from the article list                   returns the new list of article */
 {
 	static article_list  result;
 
@@ -266,8 +228,7 @@ delete_article_1_svc(article_list *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-fetch_article_1_svc(article_list *argp, struct svc_req *rqstp)
+int * fetch_article_1_svc(article_list *argp, struct svc_req *rqstp)        /*get a specified article                                   returns 0 or -1 if error */
 {
 	static int  result;
 
@@ -278,8 +239,7 @@ fetch_article_1_svc(article_list *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-list_all_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
+int * list_all_brand_1_svc(list_brand *argp, struct svc_req *rqstp)         /*list every brand                                          returns 0 or -1 if error */
 {
 	static int  result;
 
@@ -290,8 +250,7 @@ list_all_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-list_brand *
-add_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
+list_brand * add_brand_1_svc(list_brand *argp, struct svc_req *rqstp)       /*add a brand to the list                                   returns the new list of brand */
 {
 	static list_brand  result;
 
@@ -302,8 +261,7 @@ add_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-list_brand *
-delete_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
+list_brand * delete_brand_1_svc(list_brand *argp, struct svc_req *rqstp)        /*remove a brand from a list                                returns the new list of brand */ 
 {
 	static list_brand  result;
 
@@ -314,8 +272,7 @@ delete_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-list_brand *
-update_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
+list_brand * update_brand_1_svc(list_brand *argp, struct svc_req *rqstp)        /*update a brand from a list                                returns the new list of brand */
 {
 	static list_brand  result;
 
@@ -326,8 +283,7 @@ update_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-cart *
-add_to_cart_1_svc(cart *argp, struct svc_req *rqstp)
+cart * add_to_cart_1_svc(cart *argp, struct svc_req *rqstp)         /*add an article to the cart                                returns the updated cart */
 {
 	static cart  result;
 
@@ -338,8 +294,7 @@ add_to_cart_1_svc(cart *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-cart *
-rent_1_svc(cart *argp, struct svc_req *rqstp)
+cart * rent_1_svc(cart *argp, struct svc_req *rqstp)            /*rent articles from cart                                   returns an empty cart */
 {
 	static cart  result;
 
@@ -350,8 +305,7 @@ rent_1_svc(cart *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-cart *
-remove_from_cart_1_svc(cart *argp, struct svc_req *rqstp)
+cart * remove_from_cart_1_svc(cart *argp, struct svc_req *rqstp)        /*remove an article from the cart                           returns the updated cart */
 {
 	static cart  result;
 

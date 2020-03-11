@@ -68,8 +68,10 @@ struct compte {
 	char profession[64];
 	char pays[32];
 	char code_promo[6];
+	int nb_credit;
 	enum connu_panoply connaissance;
-	struct abonnement abonnement_suivi;
+	struct list_abonnement abonnement_suivi;
+	struct date date_abonnement;
 };
 typedef struct compte compte;
 
@@ -108,7 +110,6 @@ struct article {
 	enum point_livraison pt_livraison;
 	struct date date_livraison;
 	int location;
-	int prix_achat;
 	int prix_location;
 	enum collection collection_reference;
 	enum brand brand_reference;
@@ -126,11 +127,8 @@ typedef struct article_list article_list;
 struct abonnement {
 	int id_abo;
 	char type_abo[30];
-	int nb_type_abo;
 	int prix_abo;
 	int credit_abo;
-	struct date date_abonnement;
-	int nb_credit_compte;
 };
 typedef struct abonnement abonnement;
 

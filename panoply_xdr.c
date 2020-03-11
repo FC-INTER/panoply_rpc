@@ -116,9 +116,13 @@ xdr_compte (XDR *xdrs, compte *objp)
 	 if (!xdr_vector (xdrs, (char *)objp->code_promo, 6,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->nb_credit))
+		 return FALSE;
 	 if (!xdr_connu_panoply (xdrs, &objp->connaissance))
 		 return FALSE;
-	 if (!xdr_abonnement (xdrs, &objp->abonnement_suivi))
+	 if (!xdr_list_abonnement (xdrs, &objp->abonnement_suivi))
+		 return FALSE;
+	 if (!xdr_date (xdrs, &objp->date_abonnement))
 		 return FALSE;
 	return TRUE;
 }
@@ -212,20 +216,10 @@ xdr_article (XDR *xdrs, article *objp)
 			 return FALSE;
 		 if (!xdr_date (xdrs, &objp->date_livraison))
 			 return FALSE;
-		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
-		if (buf == NULL) {
-			 if (!xdr_int (xdrs, &objp->location))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->prix_achat))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->prix_location))
-				 return FALSE;
-
-		} else {
-		IXDR_PUT_LONG(buf, objp->location);
-		IXDR_PUT_LONG(buf, objp->prix_achat);
-		IXDR_PUT_LONG(buf, objp->prix_location);
-		}
+		 if (!xdr_int (xdrs, &objp->location))
+			 return FALSE;
+		 if (!xdr_int (xdrs, &objp->prix_location))
+			 return FALSE;
 		 if (!xdr_collection (xdrs, &objp->collection_reference))
 			 return FALSE;
 		 if (!xdr_brand (xdrs, &objp->brand_reference))
@@ -261,20 +255,10 @@ xdr_article (XDR *xdrs, article *objp)
 			 return FALSE;
 		 if (!xdr_date (xdrs, &objp->date_livraison))
 			 return FALSE;
-		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
-		if (buf == NULL) {
-			 if (!xdr_int (xdrs, &objp->location))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->prix_achat))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->prix_location))
-				 return FALSE;
-
-		} else {
-		objp->location = IXDR_GET_LONG(buf);
-		objp->prix_achat = IXDR_GET_LONG(buf);
-		objp->prix_location = IXDR_GET_LONG(buf);
-		}
+		 if (!xdr_int (xdrs, &objp->location))
+			 return FALSE;
+		 if (!xdr_int (xdrs, &objp->prix_location))
+			 return FALSE;
 		 if (!xdr_collection (xdrs, &objp->collection_reference))
 			 return FALSE;
 		 if (!xdr_brand (xdrs, &objp->brand_reference))
@@ -299,8 +283,6 @@ xdr_article (XDR *xdrs, article *objp)
 	 if (!xdr_date (xdrs, &objp->date_livraison))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->location))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->prix_achat))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->prix_location))
 		 return FALSE;
@@ -335,73 +317,14 @@ xdr_abonnement (XDR *xdrs, abonnement *objp)
 	register int32_t *buf;
 
 	int i;
-
-	if (xdrs->x_op == XDR_ENCODE) {
-		 if (!xdr_int (xdrs, &objp->id_abo))
-			 return FALSE;
-		 if (!xdr_vector (xdrs, (char *)objp->type_abo, 30,
-			sizeof (char), (xdrproc_t) xdr_char))
-			 return FALSE;
-		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
-		if (buf == NULL) {
-			 if (!xdr_int (xdrs, &objp->nb_type_abo))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->prix_abo))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->credit_abo))
-				 return FALSE;
-
-		} else {
-		IXDR_PUT_LONG(buf, objp->nb_type_abo);
-		IXDR_PUT_LONG(buf, objp->prix_abo);
-		IXDR_PUT_LONG(buf, objp->credit_abo);
-		}
-		 if (!xdr_date (xdrs, &objp->date_abonnement))
-			 return FALSE;
-		 if (!xdr_int (xdrs, &objp->nb_credit_compte))
-			 return FALSE;
-		return TRUE;
-	} else if (xdrs->x_op == XDR_DECODE) {
-		 if (!xdr_int (xdrs, &objp->id_abo))
-			 return FALSE;
-		 if (!xdr_vector (xdrs, (char *)objp->type_abo, 30,
-			sizeof (char), (xdrproc_t) xdr_char))
-			 return FALSE;
-		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
-		if (buf == NULL) {
-			 if (!xdr_int (xdrs, &objp->nb_type_abo))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->prix_abo))
-				 return FALSE;
-			 if (!xdr_int (xdrs, &objp->credit_abo))
-				 return FALSE;
-
-		} else {
-		objp->nb_type_abo = IXDR_GET_LONG(buf);
-		objp->prix_abo = IXDR_GET_LONG(buf);
-		objp->credit_abo = IXDR_GET_LONG(buf);
-		}
-		 if (!xdr_date (xdrs, &objp->date_abonnement))
-			 return FALSE;
-		 if (!xdr_int (xdrs, &objp->nb_credit_compte))
-			 return FALSE;
-	 return TRUE;
-	}
-
 	 if (!xdr_int (xdrs, &objp->id_abo))
 		 return FALSE;
 	 if (!xdr_vector (xdrs, (char *)objp->type_abo, 30,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_type_abo))
-		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->prix_abo))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->credit_abo))
-		 return FALSE;
-	 if (!xdr_date (xdrs, &objp->date_abonnement))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_credit_compte))
 		 return FALSE;
 	return TRUE;
 }

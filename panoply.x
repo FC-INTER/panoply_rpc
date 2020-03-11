@@ -7,7 +7,7 @@ struct panoply {
     struct list_brand marques;
     struct historiqueCommande commandes;
 };
-
+/*-------------------------------------------*/
 /* account management */
 enum connu_panoply {
 	Par_une_amie = 1,
@@ -48,8 +48,10 @@ struct compte {
 	char profession[64];
 	char pays[32];
 	char code_promo[6];
+    int nb_credit;
 	enum connu_panoply connaissance;
-    struct abonnement abonnement_suivi;
+    struct list_abonnement abonnement_suivi;
+    struct date date_abonnement;
 };
 
 
@@ -58,25 +60,8 @@ struct list_account{
     struct compte cmpt[250];
     int nbCompte;
 };
-
+/*-------------------------------------------*/
 /* collection management */
-/*
-enum type_collection {
-    nouveautes = 1,
-    combis_et_smoking = 2,
-    robes_minis = 3,
-    robes_mi_longues = 4,
-    robes_longues = 5,
-    robes_longues_soir = 6,
-    sweats_et_mailles = 7,
-    tops = 8,
-    jupes = 9,
-    pantalons_et_shorts = 10,
-    vestes = 11,
-    manteaux = 12,
-    bijoux = 13,
-    sacs = 14
-};*/
 
 struct collection {
     int id_collection;
@@ -89,7 +74,7 @@ struct list_collection {
     struct collection collection[50];
     int nb_different_collection;
 };
-
+/*-------------------------------------------*/
 /* Article management */
 enum point_livraison{
     Paris_Neuilly_Boulogne = 1,
@@ -105,7 +90,6 @@ struct article {
     enum point_livraison pt_livraison;
     struct date date_livraison;
     int location;
-    int prix_achat;
     int prix_location;
     enum collection collection_reference;
     enum brand brand_reference;
@@ -117,34 +101,21 @@ struct article_list{
     struct article article[150];
     int nb_different_article;
 };
-
+/*-------------------------------------------*/
 /* Subscription management */
-
-
-/*
-enum typeAbo {
-    Un_Peu = 1,
-    Beaucoup = 2,
-    Passionnement = 3,
-    A_La_Folie = 4,
-    Aucun = 5
-};*/
 
 struct abonnement {
     int id_abo;
     char type_abo[30];
-    int nb_type_abo;
     int prix_abo;
     int credit_abo;
-    struct date date_abonnement;
-    int nb_credit_compte;
 };
 
 struct list_abonnement{
     struct abonnement abonnements[30];
     int nb_different_abonnement;
 };
-
+/*-------------------------------------------*/
 /* Brand management */
 struct brand{
     int id_brand;
@@ -158,7 +129,7 @@ struct list_brand{
     struct brand brands[124];
     int nb_different_brand;
 };
-
+/*-------------------------------------------*/
 /* Order management */
 struct cart{
     struct article list_article[50];
@@ -174,7 +145,7 @@ struct historiqueCommande {
     struct cart listCommande[50];
     int nbCommande;
 };
-
+/*-------------------------------------------*/
 /*Fonctions*/
 
 program SERVICE_PANOPLY{
