@@ -6,6 +6,7 @@ struct panoply {
     struct list_abonnement abonnements;
     struct list_brand marques;
     struct historiqueCommande commandes;
+    struct TJ_article_brand_list tj_art_brand;
 };
 /*-------------------------------------------*/
 /* account management */
@@ -88,11 +89,9 @@ struct article {
     char nom[32];
     int taille[20];
     enum point_livraison pt_livraison;
-    struct date date_livraison;
-    int location;
     int prix_location;
     enum collection collection_reference;
-    enum brand brand_reference;
+    struct TJ_article_brand_list brand_reference;
     int credit;
     int stock;
 };
@@ -101,6 +100,19 @@ struct article_list{
     struct article article[150];
     int nb_different_article;
 };
+/*-------------------------------------------*/
+/* Table join article brand  */
+
+struct TJ_article_brand{
+    int id_article;
+    int id_brand;
+};
+
+struct TJ_article_brand_list{
+    struct TJ_article_brand id_tj_article_brand[150];
+    int nb_different_tj_article_brand;    
+};
+
 /*-------------------------------------------*/
 /* Subscription management */
 
@@ -117,6 +129,7 @@ struct list_abonnement{
 };
 /*-------------------------------------------*/
 /* Brand management */
+
 struct brand{
     int id_brand;
     char brand_name[32];

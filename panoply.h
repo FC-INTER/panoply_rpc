@@ -21,6 +21,7 @@ struct panoply {
 	struct list_abonnement abonnements;
 	struct list_brand marques;
 	struct historiqueCommande commandes;
+	struct TJ_article_brand_list tj_art_brand;
 };
 typedef struct panoply panoply;
 
@@ -108,11 +109,9 @@ struct article {
 	char nom[32];
 	int taille[20];
 	enum point_livraison pt_livraison;
-	struct date date_livraison;
-	int location;
 	int prix_location;
 	enum collection collection_reference;
-	enum brand brand_reference;
+	struct TJ_article_brand_list brand_reference;
 	int credit;
 	int stock;
 };
@@ -123,6 +122,18 @@ struct article_list {
 	int nb_different_article;
 };
 typedef struct article_list article_list;
+
+struct TJ_article_brand {
+	int id_article;
+	int id_brand;
+};
+typedef struct TJ_article_brand TJ_article_brand;
+
+struct TJ_article_brand_list {
+	struct TJ_article_brand id_tj_article_brand[150];
+	int nb_different_tj_article_brand;
+};
+typedef struct TJ_article_brand_list TJ_article_brand_list;
 
 struct abonnement {
 	int id_abo;
@@ -333,6 +344,8 @@ extern  bool_t xdr_list_collection (XDR *, list_collection*);
 extern  bool_t xdr_point_livraison (XDR *, point_livraison*);
 extern  bool_t xdr_article (XDR *, article*);
 extern  bool_t xdr_article_list (XDR *, article_list*);
+extern  bool_t xdr_TJ_article_brand (XDR *, TJ_article_brand*);
+extern  bool_t xdr_TJ_article_brand_list (XDR *, TJ_article_brand_list*);
 extern  bool_t xdr_abonnement (XDR *, abonnement*);
 extern  bool_t xdr_list_abonnement (XDR *, list_abonnement*);
 extern  bool_t xdr_brand (XDR *, brand*);
@@ -354,6 +367,8 @@ extern bool_t xdr_list_collection ();
 extern bool_t xdr_point_livraison ();
 extern bool_t xdr_article ();
 extern bool_t xdr_article_list ();
+extern bool_t xdr_TJ_article_brand ();
+extern bool_t xdr_TJ_article_brand_list ();
 extern bool_t xdr_abonnement ();
 extern bool_t xdr_list_abonnement ();
 extern bool_t xdr_brand ();

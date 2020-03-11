@@ -11,7 +11,7 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
 {
 	static panoply  result;
 
-    /*init abonnements*/
+/*init abonnements*/
     argp->abonnements.nb_different_abonnement=4;
 
         /* ~Abonnement n°1~ */
@@ -38,6 +38,16 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         argp->abonnements.abonnements[0].prix_abo=319;
         argp->abonnements.abonnements[0].credit_abo=8;
 
+    /*init tj_article_brand*/
+
+
+
+    
+    
+
+
+
+
     /*enum point_livraison{
     Paris_Neuilly_Boulogne = 1,
     Rest_of_France = 2,
@@ -50,14 +60,17 @@ struct article {
     char nom[32];
     int taille[20];
     enum point_livraison pt_livraison;
-    struct date date_livraison;
-    int location;
     int prix_location;
     enum collection collection_reference;
-    enum brand brand_reference;
+    struct brand brand_reference;
     int credit;
     int stock;
 };
+int id_brand;
+    char brand_name[32];
+    struct article brand_article_list[124];
+    char description[3000];
+
 
 struct article_list{
     struct article article[150];
@@ -65,7 +78,21 @@ struct article_list{
 };*/
 
     /*init articles*/
-    argp->articles.
+    argp->articles.nb_different_article=5;
+   
+       /* ~Article n°1~ */
+       argp->articles.id_article = 0; 
+       strcpy(argp->articles.nom,"Flower dress");
+       argp->articles.taille[0]=34;
+       argp->articles.taille[1]=38;
+       argp->articles.taille[2]=42;
+       argp->articles.taille[3]=-1;        
+       argp->articles.pt_livraison=1;
+       argp->articles.collection_reference
+       argp->articles.brand_reference.id_tj_article_brand[0].id_article = 0;
+       argp->articles.brand_reference.id_tj_article_brand[0].id_brand = 1;
+       argp->articles.credit=1;
+       argp->articles.stock=5;
 
     /*init comptes*/
     argp->comptes.nbCompte=1;
@@ -94,6 +121,7 @@ struct article_list{
 
     /*init commandes*/
     arpg->commandes.
+
 
 	return &result;
 }
