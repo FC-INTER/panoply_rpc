@@ -1,13 +1,69 @@
-/*database*/
-struct panoply {
-    struct list_account comptes;
-    struct list_collection collections;
-    struct article_list articles;
-    struct list_abonnement abonnements;
-    struct list_brand marques;
-    struct historiqueCommande commandes;
-    struct TJ_article_brand_list tj_art_brand;
-    struct TJ_article_collection_list tj_art_coll;
+/* Subscription management */
+
+struct abonnement {
+    int id_abo;
+    char type_abo[30];
+    int prix_abo;
+    int credit_abo;
+};
+
+struct list_abonnement{
+    struct abonnement abonnements[30];
+    int nb_different_abonnement;
+};
+
+/*-------------------------------------------*/
+/* collection management */
+
+struct collection {
+    int id_collection;
+    char nom_collection[50];
+};
+
+struct list_collection {
+    struct collection collection[50];
+    int nb_different_collection;
+};
+/*-------------------------------------------*/
+/* Brand management */
+
+struct brand{
+    int id_brand;
+    char brand_name[32];
+    char description[3000];
+     
+};
+
+struct list_brand{
+    struct brand brands[124];
+    int nb_different_brand;
+};
+
+/*-------------------------------------------*/
+/* Article management */
+
+enum point_livraison{
+    Paris_Neuilly_Boulogne = 1,
+    Rest_of_France = 2,
+    Belgium = 3,
+    UK = 4
+};
+
+struct article {
+    int id_article;
+    char nom[32];
+    int taille[20];
+    enum point_livraison pt_livraison;
+    int prix_location;
+    struct collection collection_reference;
+    struct brand brand_reference;
+    int credit;
+    int stock;
+};
+
+struct article_list{
+    struct article article[150];
+    int nb_different_article;
 };
 /*-------------------------------------------*/
 /* account management */
@@ -62,74 +118,7 @@ struct list_account{
 };
 
 /*-------------------------------------------*/
-/* collection management */
 
-struct collection {
-    int id_collection;
-    char nom_collection[50];
-};
-
-struct list_collection {
-    struct collection collection[50];
-    int nb_different_collection;
-};
-/*-------------------------------------------*/
-/* Article management */
-
-enum point_livraison{
-    Paris_Neuilly_Boulogne = 1,
-    Rest_of_France = 2,
-    Belgium = 3,
-    UK = 4
-};
-
-struct article {
-    int id_article;
-    char nom[32];
-    int taille[20];
-    enum point_livraison pt_livraison;
-    int prix_location;
-    struct collection collection_reference;
-    struct brand brand_reference;
-    int credit;
-    int stock;
-};
-
-struct article_list{
-    struct article article[150];
-    int nb_different_article;
-};
-/*-------------------------------------------*/
-/* Subscription management */
-
-struct abonnement {
-    int id_abo;
-    char type_abo[30];
-    int prix_abo;
-    int credit_abo;
-};
-
-struct list_abonnement{
-    struct abonnement abonnements[30];
-    int nb_different_abonnement;
-};
-
-/*-------------------------------------------*/
-/* Brand management */
-
-struct brand{
-    int id_brand;
-    char brand_name[32];
-    char description[3000];
-     
-};
-
-struct list_brand{
-    struct brand brands[124];
-    int nb_different_brand;
-};
-
-/*-------------------------------------------*/
 /* Order management */
 struct cart{
     struct article list_article[50];
@@ -146,11 +135,22 @@ struct historiqueCommande {
     int nbCommande;
 };
 /*-------------------------------------------*/
+/*database*/
+struct panoply {
+    struct list_account comptes;
+    struct list_collection collections;
+    struct article_list articles;
+    struct list_abonnement abonnements;
+    struct list_brand marques;
+    struct historiqueCommande commandes;
+};
+
+
+/*-------------------------------------------*/
 /*Fonctions*/
 
 program SERVICE_PANOPLY{
     version SERVICE_VERSION_1 {
-
         /* Function that initialize the database */
         panoply INIT(panoply) = 1;                                          /*initialize the database                                    returns the initialised database */
 

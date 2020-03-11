@@ -11,7 +11,6 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
 {
 	static panoply  result;
 
-
     /*init abonnements*/
     argp->abonnements.nb_different_abonnement=4;
 
@@ -39,30 +38,52 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         argp->abonnements.abonnements[0].prix_abo=319;
         argp->abonnements.abonnements[0].credit_abo=8;    
     
+    /*init collections*/
+    argp->collections.nb_different_collection=2;
+    
+        /* ~Collection n°1~ */
+        argp->collections.collection[0].id_collection=0;
+        strcpy(argp->collections.collection[0].nom_collection,"Robes longues");
 
+        /* ~Collection n°2~ */
+        argp->collections.collection[1].id_collection=1;
+        strcpy(argp->collections.collection[1].nom_collection,"Robes mini");
+
+    /*init marques*/
+    argp->marques.nb_different_brand=2;
+
+        /* ~Marques n°1~ */
+        argp->marques.brands[0].id_brand=0;
+        strcpy(argp->marques.brands[0].brand_name,"3.1 Phillip Lim");
+        strcpy(argp->marques.brands[0].description,"Un style classique maitrisé associé à une touche sportwear définit l'identité de la maison 3.1 Phillip Lim.\n\nLe minimalisme des pièces et la palette de couleurs restreinte focalisent l'attention sur des coupes structurées et des détails originaux mis en valeur par des matières nobles et texturées pour une femme libre et naturellement chic.");
+
+        /* ~Marques n°2~ */
+        argp->marques.brands[1].id_brand=1;
+        strcpy(argp->marques.brands[1].brand_name,"Alexis Mabille");
+        strcpy(argp->marques.brands[1].description,"Formé aux côtés de Hedi Slimane chez Dior, Alexis Mabille s'intéresse particulièrement à l'androgynie et aux frontières du masculin et du féminin. Il lance sa griffe en 2005 et crée des collections unisexes remarquées du milieu de la mode. Il revisite le nœud papillon en jouant sur les volumes et cet accessoire désuet devient sa marque de fabrique.");
 
     /*init articles*/
     argp->articles.nb_different_article=5;
    
        /* ~Article n°1~ */
-       argp->articles.id_article = 0; 
-       strcpy(argp->articles.nom,"Flower dress");
-       argp->articles.taille[0]=34;
-       argp->articles.taille[1]=38;
-       argp->articles.taille[2]=42;
-       argp->articles.taille[3]=-1;        
-       argp->articles.pt_livraison=1;
-       argp->articles.collection_reference.id_article                   //to complete
-       argp->articles.brand_reference.id_tj_article_brand[0].id_article = 0;
-       argp->articles.brand_reference.id_tj_article_brand[0].id_brand = 1;
-       argp->articles.credit=1;
-       argp->articles.stock=5;
+       argp->articles.article[0].id_article = 0; 
+       strcpy(argp->articles.article[0].nom,"Flower dress");
+       argp->articles.article[0].taille[0]=34;
+       argp->articles.article[0].taille[1]=38;
+       argp->articles.article[0].taille[2]=42;
+       argp->articles.article[0].taille[3]=-1;        
+       argp->articles.article[0].pt_livraison=1;
+       argp->articles.article[0].prix_location=55;       
+       argp->articles.article[0].collection_reference=argp->collections.collection[0];                   
+       argp->articles.article[0].brand_reference = argp->marques.brands[1];
+       argp->articles.article[0].credit=1;
+       argp->articles.article[0].stock=5;
 
     /*init comptes*/
     argp->comptes.nbCompte=1;
 
         /* ~compte n°1~ */
-        argp->comptes.cmpt.id_compte=0;
+        argp->comptes.cmpt[0].id_compte=0;
         strcpy(argp->comptes.cmpt[0].email.email,"client1@univ-brest.fr"); 
         strcpy(argp->comptes.cmpt[0].mdp.mdp,"client1"); 
         strcpy(argp->comptes.cmpt[0].nom,"masse");
@@ -74,25 +95,19 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         strcpy(argp->comptes.cmpt[0].profession,"maitre de conf");
         strcpy(argp->comptes.cmpt[0].pays,"france");
         strcpy(argp->comptes.cmpt[0].code_promo,"DS4T56");
+        argp->comptes.cmpt[0].nb_credit=7;
         argp->comptes.cmpt[0].connaissance = 1;
         argp->comptes.cmpt[0].abonnement_suivi.abonnements[1]= argp->abonnements.abonnements[0];
 
-    /*init collections*/
-    argp->collections.
-
-    /*init marques*/
-    arpg->marques.
 
     /*init commandes*/
-    arpg->commandes.
+    argp->commandes.nbCommande=0;
 
-
-
+    result=*argp;
 	return &result;
 }
 
-compte *
-create_account_1_svc(void *argp, struct svc_req *rqstp)
+compte * create_account_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static compte  result;
 
@@ -103,8 +118,7 @@ create_account_1_svc(void *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
+int * log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 {
 	static int  result;
 

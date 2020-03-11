@@ -6,141 +6,33 @@
 #include "panoply.h"
 
 bool_t
-xdr_panoply (XDR *xdrs, panoply *objp)
-{
-	register int32_t *buf;
-
-	 if (!xdr_list_account (xdrs, &objp->comptes))
-		 return FALSE;
-	 if (!xdr_list_collection (xdrs, &objp->collections))
-		 return FALSE;
-	 if (!xdr_article_list (xdrs, &objp->articles))
-		 return FALSE;
-	 if (!xdr_list_abonnement (xdrs, &objp->abonnements))
-		 return FALSE;
-	 if (!xdr_list_brand (xdrs, &objp->marques))
-		 return FALSE;
-	 if (!xdr_historiqueCommande (xdrs, &objp->commandes))
-		 return FALSE;
-	 if (!xdr_TJ_article_brand_list (xdrs, &objp->tj_art_brand))
-		 return FALSE;
-	 if (!xdr_TJ_article_collection_list (xdrs, &objp->tj_art_coll))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_connu_panoply (XDR *xdrs, connu_panoply *objp)
-{
-	register int32_t *buf;
-
-	 if (!xdr_enum (xdrs, (enum_t *) objp))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_mail (XDR *xdrs, mail *objp)
+xdr_abonnement (XDR *xdrs, abonnement *objp)
 {
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->email, 128,
+	 if (!xdr_int (xdrs, &objp->id_abo))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->type_abo, 30,
 		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->prix_abo))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->credit_abo))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_mot_de_passe (XDR *xdrs, mot_de_passe *objp)
+xdr_list_abonnement (XDR *xdrs, list_abonnement *objp)
 {
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->mdp, 32,
-		sizeof (char), (xdrproc_t) xdr_char))
+	 if (!xdr_vector (xdrs, (char *)objp->abonnements, 30,
+		sizeof (abonnement), (xdrproc_t) xdr_abonnement))
 		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_date (XDR *xdrs, date *objp)
-{
-	register int32_t *buf;
-
-	 if (!xdr_int (xdrs, &objp->jour))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->mois))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->annee))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_identifiants (XDR *xdrs, identifiants *objp)
-{
-	register int32_t *buf;
-
-	 if (!xdr_mail (xdrs, &objp->email))
-		 return FALSE;
-	 if (!xdr_mot_de_passe (xdrs, &objp->mdp))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_compte (XDR *xdrs, compte *objp)
-{
-	register int32_t *buf;
-
-	int i;
-	 if (!xdr_int (xdrs, &objp->id_compte))
-		 return FALSE;
-	 if (!xdr_mail (xdrs, &objp->email))
-		 return FALSE;
-	 if (!xdr_mot_de_passe (xdrs, &objp->mdp))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->nom, 32,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->prenom, 32,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_date (xdrs, &objp->date_de_naissance))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->telephone))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->profession, 64,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->pays, 32,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->code_promo, 6,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_credit))
-		 return FALSE;
-	 if (!xdr_connu_panoply (xdrs, &objp->connaissance))
-		 return FALSE;
-	 if (!xdr_list_abonnement (xdrs, &objp->abonnement_suivi))
-		 return FALSE;
-	 if (!xdr_date (xdrs, &objp->date_abonnement))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_list_account (XDR *xdrs, list_account *objp)
-{
-	register int32_t *buf;
-
-	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->cmpt, 250,
-		sizeof (compte), (xdrproc_t) xdr_compte))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nbCompte))
+	 if (!xdr_int (xdrs, &objp->nb_different_abonnement))
 		 return FALSE;
 	return TRUE;
 }
@@ -169,6 +61,37 @@ xdr_list_collection (XDR *xdrs, list_collection *objp)
 		sizeof (collection), (xdrproc_t) xdr_collection))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->nb_different_collection))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_brand (XDR *xdrs, brand *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_int (xdrs, &objp->id_brand))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->brand_name, 32,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->description, 3000,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_list_brand (XDR *xdrs, list_brand *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->brands, 124,
+		sizeof (brand), (xdrproc_t) xdr_brand))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->nb_different_brand))
 		 return FALSE;
 	return TRUE;
 }
@@ -300,64 +223,117 @@ xdr_article_list (XDR *xdrs, article_list *objp)
 }
 
 bool_t
-xdr_abonnement (XDR *xdrs, abonnement *objp)
+xdr_connu_panoply (XDR *xdrs, connu_panoply *objp)
 {
 	register int32_t *buf;
 
-	int i;
-	 if (!xdr_int (xdrs, &objp->id_abo))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->type_abo, 30,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->prix_abo))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->credit_abo))
+	 if (!xdr_enum (xdrs, (enum_t *) objp))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_list_abonnement (XDR *xdrs, list_abonnement *objp)
+xdr_mail (XDR *xdrs, mail *objp)
 {
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->abonnements, 30,
-		sizeof (abonnement), (xdrproc_t) xdr_abonnement))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_different_abonnement))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_brand (XDR *xdrs, brand *objp)
-{
-	register int32_t *buf;
-
-	int i;
-	 if (!xdr_int (xdrs, &objp->id_brand))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->brand_name, 32,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->description, 3000,
+	 if (!xdr_vector (xdrs, (char *)objp->email, 128,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_list_brand (XDR *xdrs, list_brand *objp)
+xdr_mot_de_passe (XDR *xdrs, mot_de_passe *objp)
 {
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->brands, 124,
-		sizeof (brand), (xdrproc_t) xdr_brand))
+	 if (!xdr_vector (xdrs, (char *)objp->mdp, 32,
+		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_different_brand))
+	return TRUE;
+}
+
+bool_t
+xdr_date (XDR *xdrs, date *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->jour))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->mois))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->annee))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_identifiants (XDR *xdrs, identifiants *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_mail (xdrs, &objp->email))
+		 return FALSE;
+	 if (!xdr_mot_de_passe (xdrs, &objp->mdp))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_compte (XDR *xdrs, compte *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_int (xdrs, &objp->id_compte))
+		 return FALSE;
+	 if (!xdr_mail (xdrs, &objp->email))
+		 return FALSE;
+	 if (!xdr_mot_de_passe (xdrs, &objp->mdp))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->nom, 32,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->prenom, 32,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_date (xdrs, &objp->date_de_naissance))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->telephone))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->profession, 64,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->pays, 32,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->code_promo, 6,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->nb_credit))
+		 return FALSE;
+	 if (!xdr_connu_panoply (xdrs, &objp->connaissance))
+		 return FALSE;
+	 if (!xdr_list_abonnement (xdrs, &objp->abonnement_suivi))
+		 return FALSE;
+	 if (!xdr_date (xdrs, &objp->date_abonnement))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_list_account (XDR *xdrs, list_account *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->cmpt, 250,
+		sizeof (compte), (xdrproc_t) xdr_compte))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->nbCompte))
 		 return FALSE;
 	return TRUE;
 }
@@ -449,6 +425,26 @@ xdr_historiqueCommande (XDR *xdrs, historiqueCommande *objp)
 		sizeof (cart), (xdrproc_t) xdr_cart))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->nbCommande))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_panoply (XDR *xdrs, panoply *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_list_account (xdrs, &objp->comptes))
+		 return FALSE;
+	 if (!xdr_list_collection (xdrs, &objp->collections))
+		 return FALSE;
+	 if (!xdr_article_list (xdrs, &objp->articles))
+		 return FALSE;
+	 if (!xdr_list_abonnement (xdrs, &objp->abonnements))
+		 return FALSE;
+	 if (!xdr_list_brand (xdrs, &objp->marques))
+		 return FALSE;
+	 if (!xdr_historiqueCommande (xdrs, &objp->commandes))
 		 return FALSE;
 	return TRUE;
 }

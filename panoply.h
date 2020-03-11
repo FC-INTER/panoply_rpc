@@ -14,17 +14,71 @@ extern "C" {
 #endif
 
 
-struct panoply {
-	struct list_account comptes;
-	struct list_collection collections;
-	struct article_list articles;
-	struct list_abonnement abonnements;
-	struct list_brand marques;
-	struct historiqueCommande commandes;
-	struct TJ_article_brand_list tj_art_brand;
-	struct TJ_article_collection_list tj_art_coll;
+struct abonnement {
+	int id_abo;
+	char type_abo[30];
+	int prix_abo;
+	int credit_abo;
 };
-typedef struct panoply panoply;
+typedef struct abonnement abonnement;
+
+struct list_abonnement {
+	struct abonnement abonnements[30];
+	int nb_different_abonnement;
+};
+typedef struct list_abonnement list_abonnement;
+
+struct collection {
+	int id_collection;
+	char nom_collection[50];
+};
+typedef struct collection collection;
+
+struct list_collection {
+	struct collection collection[50];
+	int nb_different_collection;
+};
+typedef struct list_collection list_collection;
+
+struct brand {
+	int id_brand;
+	char brand_name[32];
+	char description[3000];
+};
+typedef struct brand brand;
+
+struct list_brand {
+	struct brand brands[124];
+	int nb_different_brand;
+};
+typedef struct list_brand list_brand;
+
+enum point_livraison {
+	Paris_Neuilly_Boulogne = 1,
+	Rest_of_France = 2,
+	Belgium = 3,
+	UK = 4,
+};
+typedef enum point_livraison point_livraison;
+
+struct article {
+	int id_article;
+	char nom[32];
+	int taille[20];
+	enum point_livraison pt_livraison;
+	int prix_location;
+	struct collection collection_reference;
+	struct brand brand_reference;
+	int credit;
+	int stock;
+};
+typedef struct article article;
+
+struct article_list {
+	struct article article[150];
+	int nb_different_article;
+};
+typedef struct article_list article_list;
 
 enum connu_panoply {
 	Par_une_amie = 1,
@@ -83,72 +137,6 @@ struct list_account {
 };
 typedef struct list_account list_account;
 
-struct collection {
-	int id_collection;
-	char nom_collection[50];
-};
-typedef struct collection collection;
-
-struct list_collection {
-	struct collection collection[50];
-	int nb_different_collection;
-};
-typedef struct list_collection list_collection;
-
-enum point_livraison {
-	Paris_Neuilly_Boulogne = 1,
-	Rest_of_France = 2,
-	Belgium = 3,
-	UK = 4,
-};
-typedef enum point_livraison point_livraison;
-
-struct article {
-	int id_article;
-	char nom[32];
-	int taille[20];
-	enum point_livraison pt_livraison;
-	int prix_location;
-	struct collection collection_reference;
-	struct brand brand_reference;
-	int credit;
-	int stock;
-};
-typedef struct article article;
-
-struct article_list {
-	struct article article[150];
-	int nb_different_article;
-};
-typedef struct article_list article_list;
-
-struct abonnement {
-	int id_abo;
-	char type_abo[30];
-	int prix_abo;
-	int credit_abo;
-};
-typedef struct abonnement abonnement;
-
-struct list_abonnement {
-	struct abonnement abonnements[30];
-	int nb_different_abonnement;
-};
-typedef struct list_abonnement list_abonnement;
-
-struct brand {
-	int id_brand;
-	char brand_name[32];
-	char description[3000];
-};
-typedef struct brand brand;
-
-struct list_brand {
-	struct brand brands[124];
-	int nb_different_brand;
-};
-typedef struct list_brand list_brand;
-
 struct cart {
 	struct article list_article[50];
 	int nbArticle;
@@ -165,6 +153,16 @@ struct historiqueCommande {
 	int nbCommande;
 };
 typedef struct historiqueCommande historiqueCommande;
+
+struct panoply {
+	struct list_account comptes;
+	struct list_collection collections;
+	struct article_list articles;
+	struct list_abonnement abonnements;
+	struct list_brand marques;
+	struct historiqueCommande commandes;
+};
+typedef struct panoply panoply;
 
 #define SERVICE_PANOPLY 0x20646464
 #define SERVICE_VERSION_1 1
@@ -317,7 +315,15 @@ extern int service_panoply_1_freeresult ();
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_panoply (XDR *, panoply*);
+extern  bool_t xdr_abonnement (XDR *, abonnement*);
+extern  bool_t xdr_list_abonnement (XDR *, list_abonnement*);
+extern  bool_t xdr_collection (XDR *, collection*);
+extern  bool_t xdr_list_collection (XDR *, list_collection*);
+extern  bool_t xdr_brand (XDR *, brand*);
+extern  bool_t xdr_list_brand (XDR *, list_brand*);
+extern  bool_t xdr_point_livraison (XDR *, point_livraison*);
+extern  bool_t xdr_article (XDR *, article*);
+extern  bool_t xdr_article_list (XDR *, article_list*);
 extern  bool_t xdr_connu_panoply (XDR *, connu_panoply*);
 extern  bool_t xdr_mail (XDR *, mail*);
 extern  bool_t xdr_mot_de_passe (XDR *, mot_de_passe*);
@@ -325,20 +331,20 @@ extern  bool_t xdr_date (XDR *, date*);
 extern  bool_t xdr_identifiants (XDR *, identifiants*);
 extern  bool_t xdr_compte (XDR *, compte*);
 extern  bool_t xdr_list_account (XDR *, list_account*);
-extern  bool_t xdr_collection (XDR *, collection*);
-extern  bool_t xdr_list_collection (XDR *, list_collection*);
-extern  bool_t xdr_point_livraison (XDR *, point_livraison*);
-extern  bool_t xdr_article (XDR *, article*);
-extern  bool_t xdr_article_list (XDR *, article_list*);
-extern  bool_t xdr_abonnement (XDR *, abonnement*);
-extern  bool_t xdr_list_abonnement (XDR *, list_abonnement*);
-extern  bool_t xdr_brand (XDR *, brand*);
-extern  bool_t xdr_list_brand (XDR *, list_brand*);
 extern  bool_t xdr_cart (XDR *, cart*);
 extern  bool_t xdr_historiqueCommande (XDR *, historiqueCommande*);
+extern  bool_t xdr_panoply (XDR *, panoply*);
 
 #else /* K&R C */
-extern bool_t xdr_panoply ();
+extern bool_t xdr_abonnement ();
+extern bool_t xdr_list_abonnement ();
+extern bool_t xdr_collection ();
+extern bool_t xdr_list_collection ();
+extern bool_t xdr_brand ();
+extern bool_t xdr_list_brand ();
+extern bool_t xdr_point_livraison ();
+extern bool_t xdr_article ();
+extern bool_t xdr_article_list ();
 extern bool_t xdr_connu_panoply ();
 extern bool_t xdr_mail ();
 extern bool_t xdr_mot_de_passe ();
@@ -346,17 +352,9 @@ extern bool_t xdr_date ();
 extern bool_t xdr_identifiants ();
 extern bool_t xdr_compte ();
 extern bool_t xdr_list_account ();
-extern bool_t xdr_collection ();
-extern bool_t xdr_list_collection ();
-extern bool_t xdr_point_livraison ();
-extern bool_t xdr_article ();
-extern bool_t xdr_article_list ();
-extern bool_t xdr_abonnement ();
-extern bool_t xdr_list_abonnement ();
-extern bool_t xdr_brand ();
-extern bool_t xdr_list_brand ();
 extern bool_t xdr_cart ();
 extern bool_t xdr_historiqueCommande ();
+extern bool_t xdr_panoply ();
 
 #endif /* K&R C */
 
