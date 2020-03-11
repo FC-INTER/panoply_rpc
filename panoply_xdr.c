@@ -24,6 +24,8 @@ xdr_panoply (XDR *xdrs, panoply *objp)
 		 return FALSE;
 	 if (!xdr_TJ_article_brand_list (xdrs, &objp->tj_art_brand))
 		 return FALSE;
+	 if (!xdr_TJ_article_collection_list (xdrs, &objp->tj_art_coll))
+		 return FALSE;
 	return TRUE;
 }
 
@@ -154,10 +156,6 @@ xdr_collection (XDR *xdrs, collection *objp)
 	 if (!xdr_vector (xdrs, (char *)objp->nom_collection, 50,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_article (xdrs, &objp->collection_article))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_articles))
-		 return FALSE;
 	return TRUE;
 }
 
@@ -220,7 +218,7 @@ xdr_article (XDR *xdrs, article *objp)
 			 return FALSE;
 		 if (!xdr_collection (xdrs, &objp->collection_reference))
 			 return FALSE;
-		 if (!xdr_TJ_article_brand_list (xdrs, &objp->brand_reference))
+		 if (!xdr_brand (xdrs, &objp->brand_reference))
 			 return FALSE;
 		 if (!xdr_int (xdrs, &objp->credit))
 			 return FALSE;
@@ -255,7 +253,7 @@ xdr_article (XDR *xdrs, article *objp)
 			 return FALSE;
 		 if (!xdr_collection (xdrs, &objp->collection_reference))
 			 return FALSE;
-		 if (!xdr_TJ_article_brand_list (xdrs, &objp->brand_reference))
+		 if (!xdr_brand (xdrs, &objp->brand_reference))
 			 return FALSE;
 		 if (!xdr_int (xdrs, &objp->credit))
 			 return FALSE;
@@ -278,7 +276,7 @@ xdr_article (XDR *xdrs, article *objp)
 		 return FALSE;
 	 if (!xdr_collection (xdrs, &objp->collection_reference))
 		 return FALSE;
-	 if (!xdr_TJ_article_brand_list (xdrs, &objp->brand_reference))
+	 if (!xdr_brand (xdrs, &objp->brand_reference))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->credit))
 		 return FALSE;
@@ -297,32 +295,6 @@ xdr_article_list (XDR *xdrs, article_list *objp)
 		sizeof (article), (xdrproc_t) xdr_article))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->nb_different_article))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_TJ_article_brand (XDR *xdrs, TJ_article_brand *objp)
-{
-	register int32_t *buf;
-
-	 if (!xdr_int (xdrs, &objp->id_article))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->id_brand))
-		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_TJ_article_brand_list (XDR *xdrs, TJ_article_brand_list *objp)
-{
-	register int32_t *buf;
-
-	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->id_tj_article_brand, 150,
-		sizeof (TJ_article_brand), (xdrproc_t) xdr_TJ_article_brand))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->nb_different_tj_article_brand))
 		 return FALSE;
 	return TRUE;
 }
@@ -369,9 +341,6 @@ xdr_brand (XDR *xdrs, brand *objp)
 		 return FALSE;
 	 if (!xdr_vector (xdrs, (char *)objp->brand_name, 32,
 		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->brand_article_list, 124,
-		sizeof (article), (xdrproc_t) xdr_article))
 		 return FALSE;
 	 if (!xdr_vector (xdrs, (char *)objp->description, 3000,
 		sizeof (char), (xdrproc_t) xdr_char))

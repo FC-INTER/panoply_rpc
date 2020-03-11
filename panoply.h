@@ -22,6 +22,7 @@ struct panoply {
 	struct list_brand marques;
 	struct historiqueCommande commandes;
 	struct TJ_article_brand_list tj_art_brand;
+	struct TJ_article_collection_list tj_art_coll;
 };
 typedef struct panoply panoply;
 
@@ -85,8 +86,6 @@ typedef struct list_account list_account;
 struct collection {
 	int id_collection;
 	char nom_collection[50];
-	struct article collection_article;
-	int nb_articles;
 };
 typedef struct collection collection;
 
@@ -110,8 +109,8 @@ struct article {
 	int taille[20];
 	enum point_livraison pt_livraison;
 	int prix_location;
-	enum collection collection_reference;
-	struct TJ_article_brand_list brand_reference;
+	struct collection collection_reference;
+	struct brand brand_reference;
 	int credit;
 	int stock;
 };
@@ -122,18 +121,6 @@ struct article_list {
 	int nb_different_article;
 };
 typedef struct article_list article_list;
-
-struct TJ_article_brand {
-	int id_article;
-	int id_brand;
-};
-typedef struct TJ_article_brand TJ_article_brand;
-
-struct TJ_article_brand_list {
-	struct TJ_article_brand id_tj_article_brand[150];
-	int nb_different_tj_article_brand;
-};
-typedef struct TJ_article_brand_list TJ_article_brand_list;
 
 struct abonnement {
 	int id_abo;
@@ -152,7 +139,6 @@ typedef struct list_abonnement list_abonnement;
 struct brand {
 	int id_brand;
 	char brand_name[32];
-	struct article brand_article_list[124];
 	char description[3000];
 };
 typedef struct brand brand;
@@ -344,8 +330,6 @@ extern  bool_t xdr_list_collection (XDR *, list_collection*);
 extern  bool_t xdr_point_livraison (XDR *, point_livraison*);
 extern  bool_t xdr_article (XDR *, article*);
 extern  bool_t xdr_article_list (XDR *, article_list*);
-extern  bool_t xdr_TJ_article_brand (XDR *, TJ_article_brand*);
-extern  bool_t xdr_TJ_article_brand_list (XDR *, TJ_article_brand_list*);
 extern  bool_t xdr_abonnement (XDR *, abonnement*);
 extern  bool_t xdr_list_abonnement (XDR *, list_abonnement*);
 extern  bool_t xdr_brand (XDR *, brand*);
@@ -367,8 +351,6 @@ extern bool_t xdr_list_collection ();
 extern bool_t xdr_point_livraison ();
 extern bool_t xdr_article ();
 extern bool_t xdr_article_list ();
-extern bool_t xdr_TJ_article_brand ();
-extern bool_t xdr_TJ_article_brand_list ();
 extern bool_t xdr_abonnement ();
 extern bool_t xdr_list_abonnement ();
 extern bool_t xdr_brand ();

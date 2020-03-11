@@ -11,7 +11,8 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
 {
 	static panoply  result;
 
-/*init abonnements*/
+
+    /*init abonnements*/
     argp->abonnements.nb_different_abonnement=4;
 
         /* ~Abonnement n°1~ */
@@ -36,46 +37,9 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         argp->abonnements.abonnements[3].id_abo = 3;
         strcpy(argp->abonnements.abonnements[0].type_abo,"A la folie");
         argp->abonnements.abonnements[0].prix_abo=319;
-        argp->abonnements.abonnements[0].credit_abo=8;
-
-    /*init tj_article_brand*/
-
-
-
-    
+        argp->abonnements.abonnements[0].credit_abo=8;    
     
 
-
-
-
-    /*enum point_livraison{
-    Paris_Neuilly_Boulogne = 1,
-    Rest_of_France = 2,
-    Belgium = 3,
-    UK = 4
-};
-
-struct article {
-    int id_article;
-    char nom[32];
-    int taille[20];
-    enum point_livraison pt_livraison;
-    int prix_location;
-    enum collection collection_reference;
-    struct brand brand_reference;
-    int credit;
-    int stock;
-};
-int id_brand;
-    char brand_name[32];
-    struct article brand_article_list[124];
-    char description[3000];
-
-
-struct article_list{
-    struct article article[150];
-    int nb_different_article;
-};*/
 
     /*init articles*/
     argp->articles.nb_different_article=5;
@@ -88,7 +52,7 @@ struct article_list{
        argp->articles.taille[2]=42;
        argp->articles.taille[3]=-1;        
        argp->articles.pt_livraison=1;
-       argp->articles.collection_reference
+       argp->articles.collection_reference.id_article                   //to complete
        argp->articles.brand_reference.id_tj_article_brand[0].id_article = 0;
        argp->articles.brand_reference.id_tj_article_brand[0].id_brand = 1;
        argp->articles.credit=1;
@@ -111,7 +75,7 @@ struct article_list{
         strcpy(argp->comptes.cmpt[0].pays,"france");
         strcpy(argp->comptes.cmpt[0].code_promo,"DS4T56");
         argp->comptes.cmpt[0].connaissance = 1;
-        argp->comptes.cmpt[0].abonnement_suivi.abonnements[1]= ;
+        argp->comptes.cmpt[0].abonnement_suivi.abonnements[1]= argp->abonnements.abonnements[0];
 
     /*init collections*/
     argp->collections.
@@ -121,6 +85,7 @@ struct article_list{
 
     /*init commandes*/
     arpg->commandes.
+
 
 
 	return &result;

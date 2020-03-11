@@ -7,6 +7,7 @@ struct panoply {
     struct list_brand marques;
     struct historiqueCommande commandes;
     struct TJ_article_brand_list tj_art_brand;
+    struct TJ_article_collection_list tj_art_coll;
 };
 /*-------------------------------------------*/
 /* account management */
@@ -55,20 +56,17 @@ struct compte {
     struct date date_abonnement;
 };
 
-
-
 struct list_account{
     struct compte cmpt[250];
     int nbCompte;
 };
+
 /*-------------------------------------------*/
 /* collection management */
 
 struct collection {
     int id_collection;
     char nom_collection[50];
-    struct article collection_article;
-    int nb_articles;
 };
 
 struct list_collection {
@@ -77,6 +75,7 @@ struct list_collection {
 };
 /*-------------------------------------------*/
 /* Article management */
+
 enum point_livraison{
     Paris_Neuilly_Boulogne = 1,
     Rest_of_France = 2,
@@ -90,8 +89,8 @@ struct article {
     int taille[20];
     enum point_livraison pt_livraison;
     int prix_location;
-    enum collection collection_reference;
-    struct TJ_article_brand_list brand_reference;
+    struct collection collection_reference;
+    struct brand brand_reference;
     int credit;
     int stock;
 };
@@ -100,19 +99,6 @@ struct article_list{
     struct article article[150];
     int nb_different_article;
 };
-/*-------------------------------------------*/
-/* Table join article brand  */
-
-struct TJ_article_brand{
-    int id_article;
-    int id_brand;
-};
-
-struct TJ_article_brand_list{
-    struct TJ_article_brand id_tj_article_brand[150];
-    int nb_different_tj_article_brand;    
-};
-
 /*-------------------------------------------*/
 /* Subscription management */
 
@@ -127,13 +113,13 @@ struct list_abonnement{
     struct abonnement abonnements[30];
     int nb_different_abonnement;
 };
+
 /*-------------------------------------------*/
 /* Brand management */
 
 struct brand{
     int id_brand;
     char brand_name[32];
-    struct article brand_article_list[124];
     char description[3000];
      
 };
@@ -142,6 +128,7 @@ struct list_brand{
     struct brand brands[124];
     int nb_different_brand;
 };
+
 /*-------------------------------------------*/
 /* Order management */
 struct cart{
