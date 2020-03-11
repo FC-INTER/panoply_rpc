@@ -106,12 +106,12 @@ create_account_1_svc(void *argp, struct svc_req *rqstp)
 int *
 log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 {
-	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
+	static int  result = 0;
+    for(int i = 0; i < panoply.comptes.nbCompte; i++){
+        if((strcmp(identidiants.email,panoply.comptes.cmpt[i].email) == 0) && (strcmp(identidiants.mdp,panoply.comptes.cmpt[i].mdp) == 0)){
+            result = 1;
+        }
+    }
 	return &result;
 }
 
