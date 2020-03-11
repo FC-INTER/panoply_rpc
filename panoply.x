@@ -42,10 +42,7 @@ struct compte {
     struct abonnement abonnement_suivi;
 };
 
-struct historiqueCommande {
-    commande listCommande[50];
-    int nbCommande;
-};
+
 
 struct list_account{
     struct compte cmpt[250];
@@ -53,7 +50,7 @@ struct list_account{
 };
 
 /* collection management */
-
+/*
 enum type_collection {
     nouveautes = 1,
     combis_et_smoking = 2,
@@ -69,21 +66,26 @@ enum type_collection {
     manteaux = 12,
     bijoux = 13,
     sacs = 14
-};
+};*/
 
 struct collection {
     int id_collection;
-    enum type_collection type;
+    char type_collection[50];
     struct article collection_article;
     int nb_articles;
 }
+
+struct list_collection {
+    struct collection collection[50];
+    int nb_different_collection;
+};
 
 /* Article management */
 
 struct article {
     int id_article;
     char nom[32];
-    int taille;
+    int taille[20];
     enum point_livraison;
     struct date date_livraison;
     int location;
@@ -102,25 +104,18 @@ struct article_list{
 
 /* Subscription management */
 
-enum connu_panoply {
-	Par_une_amie,
-	Une_recherche_en_ligne,
-	Un_article_de_presse,
-	Aux_galerie_lafayette,
-	Sur_les_reseaux_sociaux,
-	Autre
-};
 
+/*
 enum typeAbo {
     Un_Peu = 1,
     Beaucoup = 2,
     Passionnement = 3,
     A_La_Folie = 4,
     Aucun = 5
-};
+};*/
 
 struct abonnement {
-    int abo_id;
+    int id_abo;
     char type_abo[30];
     int nb_type_abo;
     int prix_abo;
@@ -129,59 +124,87 @@ struct abonnement {
     int nb_credit_compte;
 };
 
+struct list_abonnement{
+    struct abonnement abonnements[30];
+    int nb_different_abonnement;
+};
 
 /* Brand management */
 struct brand{
-    
+    int id_brand;
+    char brand_name[32];
+    struct article brand_article_list[124];
+    char description[3000];
+     
 };
 
+struct list_brand{
+    struct brand brands[124];
+    int nb_different_brand;
+};
 
 /* Order management */
-struct order{
+struct cart{
+    struct article list_article[50];
+    int nbArticle;
+    int rent_price_credit;
+    int rent_price_euros;
+    enum point_livraison;
+    struct date date_livraison;
+    struct date date_rendu; 
+};
+
+struct historiqueCommande {
+    struct cart listCommande[50];
+    int nbCommande;
+    int rent_price_credit;
+    int rent_price_euros;
+    enum point_livraison;
+    struct date date_livraison;
 
 };
+
 /*Fonctions*/
 
 program SERVICE_PANOPLY{
     version SERVICE_VERSION_1 {
 
         /* Function that initialize the database */
-        int INIT();                                         //initialize the database                                    returns 0 or -1 if error
+        int INIT();                                                         //initialize the database                                    returns 0 or -1 if error
 
         /* Account functions */
-        compte CREATE_ACCOUNT() = 1;                        //create an account and add it to the database               returns an account
-        int LOG_IN(identifiants) = 2;                       //check if the log in exists                                 returns 0 or -1 if error
+        compte CREATE_ACCOUNT() = 1;                                        //create an account and add it to the database               returns an account
+        int LOG_IN(identifiants) = 2;                                       //check if the log in exists                                 returns 0 or -1 if error
 
         /* Collection functions */
-        int LIST_COLLECTION(type_collection) = 3;               //display every type of collection                           returns the number of element or -1 if error
-        int LIST_COLLECTION_CLOTHES(collection) = 4;            //display every clothes for every type of collection         returns the number of clothes or -1 if error 
-        int ADD_CLOTH_TO_COLLECTION(collection) = 5;            //add an cloth to a collection                               returns 0 or -1 if error 
-        int REMOVE_CLOTH_TO_COLLECTION(collection) = 6;         //remove a cloth from a collection                           returns 0 or -1 if error
+        int LIST_ALL_COLLECTION(list_collection) = 3;                       //display every type of collection                           returns the number of element or -1 if error
+        int LIST_ALL_COLLECTION_CLOTHES(list_collection) = 4;               //display every clothes for every type of collection         returns the number of clothes or -1 if error 
+        list_collection ADD_CLOTH_TO_COLLECTION(list_collection) = 5;       //add an cloth to a collection                               returns the list of all different collection
+        list_collection REMOVE_CLOTH_TO_COLLECTION(list_collection) = 6;    //remove a cloth from a collection                           returns the list of all different collection
 
         /* Subscription functions */        
-        int LIST_TYPE_ABO(void) = 7;                       //list every subscription                                    returns the number of element or -1 if error
-        compte AFFECTER_ABO_CLIENT(compte) = 8;            //set the subscription of an account                         returns an account
-        int MODIF_ABO(compte) = 9;                         //edit account                                               returns 0 or -1 if error
-        abonnement REMOVE_SUBSCRIPTION(comtpe) = 10;         //add a new subscription to the list                         returns a subscription
-        int DISPLAY_ABONNEMENT(abonnement) = 11;            //display the number of subscription for every               returns 0 or -1 if error
-                                                            //subscription type 
+        int LIST_TYPE_ABO(list_abonnement) = 7;                             //list every subscription                                    returns the number of element or -1 if error
+        compte AFFECTER_ABO_CLIENT(compte) = 8;                             //set the subscription of an account                         returns an account
+        compte MODIF_ABO(compte) = 9;                                       //edit account subsciption                                   returns 0 or -1 if error
+        list_abonnement ADD_SUBSCRIPTION(list_abonnement) = 10;             //add a new subscription to the list                         returns a subscription
+        int DISPLAY_ABONNEMENT(abonnement) = 11;                            //display the number of subscription for every               returns 0 or -1 if error
+                                                                            //subscription type 
         /* Article functions */
-        article_list ADD_ARTICLE(article_list) = 12;        //add an article to the list of article                     returns the new list of article
-        article_list UPDATE_ARTICLE(article_list) = 13;     //update the list of articles                               returns the new list of article                         
-        article_list DELETE_ARTICLE(article_list) = 14;     //remove an article from the article list                   returns the new list of article
-        int FETCH_ARTICLE(article_list) = 15;               //get a specified article                                   returns 0 or -1 if error
+        article_list ADD_ARTICLE(article_list) = 12;                        //add an article to the list of article                     returns the new list of article
+        article_list UPDATE_ARTICLE(article_list) = 13;                     //update the list of articles                               returns the new list of article                         
+        article_list DELETE_ARTICLE(article_list) = 14;                     //remove an article from the article list                   returns the new list of article
+        int FETCH_ARTICLE(article_list) = 15;                               //get a specified article                                   returns 0 or -1 if error
 
         /* Brand function */
-        LIST_BRAND() = 16;
-        ADD_BRAND() = 17;
-        DELETE_BRAND() = 18;
-        UPDATE_BRAND() = 19;
+        int LIST_ALL_BRAND(list_brand) = 16;                                //list every brand                                          returns 0 or -1 if error
+        list_brand ADD_BRAND(list_brand) = 17;                              //add a brand to the list                                   returns the new list of brand
+        list_brand DELETE_BRAND(list_brand) = 18;                           //remove a brand from a list                                returns the new list of brand
+        list_brand UPDATE_BRAND(list_brand) = 19;                           //update a brand from a list                                returns the new list of brand
 
         /* Order function */
-        ADD_TO_CART()= 20;
-        RENT() = 21;
-        BUY() = 22;
-        REMOVE_FROM_CART()= 23;
+        cart ADD_TO_CART(cart)= 20;                                         //add an article to the cart                                returns the updated cart
+        cart RENT(cart) = 21;                                               //rent articles from cart                                   returns an empty cart
+        cart REMOVE_FROM_CART(cart)= 22;                                    //remove an article from the cart                           returns the updated cart
 
 
     } = 1;
