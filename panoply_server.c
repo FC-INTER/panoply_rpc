@@ -367,7 +367,8 @@ panoply * rent_1_svc(panoply *argp, struct svc_req *rqstp)
 
 	char confirmation;
 	char payement;
-	int id,nb_article,i;
+	int id,nb_article,i,indice_article,stock;
+	struct article passage;
 
 
 	printf("---------------------------------------------------\n");
@@ -381,14 +382,53 @@ panoply * rent_1_svc(panoply *argp, struct svc_req *rqstp)
 		printf("Voulez vous payer en jeton ou en euros ? (j/e)\n");
 		scanf("%s",&payement);
 		if(payement == 'j'){
-			printf("Payement effectué");
+			argp->comptes.cmpt[id].nb_credit--;
+			printf("Payement effectué\n");
 			nb_article=argp->commandes.listCommande[id].nbArticle;
+			printf("Mise à jour des stock\n");
 			for (i = 0 ; i<nb_article ; i++ ){
-				
+
+				indice_article=argp->commandes.listCommande[id].list_article[i].id_article;
+				stock=argp->commandes.listCommande[id].list_article[i].stock;
+				printf("	article : %s | indice : %d |stock : %d\n",argp->commandes.listCommande[id].list_article[i].nom,indice_article,stock);
+				stock = argp->articles.article[indice_article-1].stock;
+				stock--;
+				printf("	article : %s | indice : %d |stock : %d\n",argp->articles.article[indice_article-1].nom,indice_article-1,stock);
+
 			}
+			printf("\n");
+			printf("Suppression du panier\n");
+			for (int i =id; argp->commandes.listCommande[id].nbArticle-2; i++){
+				passage=argp->commandes.listCommande[id].list_article[i];
+				argp->commandes.listCommande[id].list_article[i]=argp->commandes.listCommande[id].list_article[i+1];
+				argp->commandes.listCommande[id].list_article[i+1]=passage;		
+			}	
+			argp->commandes.listCommande[id].nbArticle--;
+			printf("Panier supprime\n");
 		}
 		else if (payement == 'e'){
-			
+			printf("Payement effectué, votre moula est partie\n");
+			nb_article=argp->commandes.listCommande[id].nbArticle;
+			printf("Mise à jour des stock\n");
+			for (i = 0 ; i<nb_article ; i++ ){
+
+				indice_article=argp->commandes.listCommande[id].list_article[i].id_article;
+				stock=argp->commandes.listCommande[id].list_article[i].stock;
+				printf("	article : %s | indice : %d |stock : %d\n",argp->commandes.listCommande[id].list_article[i].nom,indice_article,stock);
+				stock = argp->articles.article[indice_article-1].stock;
+				stock--;
+				printf("	article : %s | indice : %d |stock : %d\n",argp->articles.article[indice_article-1].nom,indice_article-1,stock);
+
+			}
+			printf("\n");
+			printf("Suppression du panier\n");
+			for (int i =id; argp->commandes.listCommande[id].nbArticle-2; i++){
+				passage=argp->commandes.listCommande[id].list_article[i];
+				argp->commandes.listCommande[id].list_article[i]=argp->commandes.listCommande[id].list_article[i+1];
+				argp->commandes.listCommande[id].list_article[i+1]=passage;		
+			}	
+			argp->commandes.listCommande[id].nbArticle--;
+			printf("Panier supprime\n");
 		}
 		else{
 			printf("vous ne savez pas taper sur votre ordi èé");
