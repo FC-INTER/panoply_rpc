@@ -70,13 +70,13 @@ list_all_collection_1(list_collection *argp, CLIENT *clnt)
 }
 
 int *
-list_all_collection_clothes_1(list_collection *argp, CLIENT *clnt)
+list_all_collection_clothes_1(article_list *argp, CLIENT *clnt)
 {
 	static int clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, LIST_ALL_COLLECTION_CLOTHES,
-		(xdrproc_t) xdr_list_collection, (caddr_t) argp,
+		(xdrproc_t) xdr_article_list, (caddr_t) argp,
 		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -85,13 +85,13 @@ list_all_collection_clothes_1(list_collection *argp, CLIENT *clnt)
 }
 
 list_collection *
-add_cloth_to_collection_1(list_collection *argp, CLIENT *clnt)
+add_cloth_to_collection_1(article *argp, CLIENT *clnt)
 {
 	static list_collection clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, ADD_CLOTH_TO_COLLECTION,
-		(xdrproc_t) xdr_list_collection, (caddr_t) argp,
+		(xdrproc_t) xdr_article, (caddr_t) argp,
 		(xdrproc_t) xdr_list_collection, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -100,13 +100,13 @@ add_cloth_to_collection_1(list_collection *argp, CLIENT *clnt)
 }
 
 list_collection *
-remove_cloth_to_collection_1(list_collection *argp, CLIENT *clnt)
+remove_cloth_to_collection_1(article *argp, CLIENT *clnt)
 {
 	static list_collection clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, REMOVE_CLOTH_TO_COLLECTION,
-		(xdrproc_t) xdr_list_collection, (caddr_t) argp,
+		(xdrproc_t) xdr_article, (caddr_t) argp,
 		(xdrproc_t) xdr_list_collection, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -160,13 +160,13 @@ modif_abo_1(compte *argp, CLIENT *clnt)
 }
 
 list_abonnement *
-add_subscription_1(list_abonnement *argp, CLIENT *clnt)
+add_subscription_1(abonnement *argp, CLIENT *clnt)
 {
 	static list_abonnement clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, ADD_SUBSCRIPTION,
-		(xdrproc_t) xdr_list_abonnement, (caddr_t) argp,
+		(xdrproc_t) xdr_abonnement, (caddr_t) argp,
 		(xdrproc_t) xdr_list_abonnement, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);

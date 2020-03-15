@@ -11,7 +11,6 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
 {
 	static panoply  result;
 
-
     /*init abonnements*/
     argp->abonnements.nb_different_abonnement=4;
 
@@ -39,30 +38,52 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         argp->abonnements.abonnements[0].prix_abo=319;
         argp->abonnements.abonnements[0].credit_abo=8;    
     
+    /*init collections*/
+    argp->collections.nb_different_collection=2;
+    
+        /* ~Collection n°1~ */
+        argp->collections.collection[0].id_collection=0;
+        strcpy(argp->collections.collection[0].nom_collection,"Robes longues");
 
+        /* ~Collection n°2~ */
+        argp->collections.collection[1].id_collection=1;
+        strcpy(argp->collections.collection[1].nom_collection,"Robes mini");
+
+    /*init marques*/
+    argp->marques.nb_different_brand=2;
+
+        /* ~Marques n°1~ */
+        argp->marques.brands[0].id_brand=0;
+        strcpy(argp->marques.brands[0].brand_name,"3.1 Phillip Lim");
+        strcpy(argp->marques.brands[0].description,"Un style classique maitrisé associé à une touche sportwear définit l'identité de la maison 3.1 Phillip Lim.\n\nLe minimalisme des pièces et la palette de couleurs restreinte focalisent l'attention sur des coupes structurées et des détails originaux mis en valeur par des matières nobles et texturées pour une femme libre et naturellement chic.");
+
+        /* ~Marques n°2~ */
+        argp->marques.brands[1].id_brand=1;
+        strcpy(argp->marques.brands[1].brand_name,"Alexis Mabille");
+        strcpy(argp->marques.brands[1].description,"Formé aux côtés de Hedi Slimane chez Dior, Alexis Mabille s'intéresse particulièrement à l'androgynie et aux frontières du masculin et du féminin. Il lance sa griffe en 2005 et crée des collections unisexes remarquées du milieu de la mode. Il revisite le nœud papillon en jouant sur les volumes et cet accessoire désuet devient sa marque de fabrique.");
 
     /*init articles*/
     argp->articles.nb_different_article=5;
    
        /* ~Article n°1~ */
-       argp->articles.id_article = 0; 
-       strcpy(argp->articles.nom,"Flower dress");
-       argp->articles.taille[0]=34;
-       argp->articles.taille[1]=38;
-       argp->articles.taille[2]=42;
-       argp->articles.taille[3]=-1;        
-       argp->articles.pt_livraison=1;
-       argp->articles.collection_reference.id_article                   //to complete
-       argp->articles.brand_reference.id_tj_article_brand[0].id_article = 0;
-       argp->articles.brand_reference.id_tj_article_brand[0].id_brand = 1;
-       argp->articles.credit=1;
-       argp->articles.stock=5;
+       argp->articles.article[0].id_article = 0; 
+       strcpy(argp->articles.article[0].nom,"Flower dress");
+       argp->articles.article[0].taille[0]=34;
+       argp->articles.article[0].taille[1]=38;
+       argp->articles.article[0].taille[2]=42;
+       argp->articles.article[0].taille[3]=-1;        
+       argp->articles.article[0].pt_livraison=1;
+       argp->articles.article[0].prix_location=55;       
+       argp->articles.article[0].collection_reference=argp->collections.collection[0];                   
+       argp->articles.article[0].brand_reference = argp->marques.brands[1];
+       argp->articles.article[0].credit=1;
+       argp->articles.article[0].stock=5;
 
     /*init comptes*/
     argp->comptes.nbCompte=1;
 
         /* ~compte n°1~ */
-        argp->comptes.cmpt.id_compte=0;
+        argp->comptes.cmpt[0].id_compte=0;
         strcpy(argp->comptes.cmpt[0].email.email,"client1@univ-brest.fr"); 
         strcpy(argp->comptes.cmpt[0].mdp.mdp,"client1"); 
         strcpy(argp->comptes.cmpt[0].nom,"masse");
@@ -74,25 +95,19 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         strcpy(argp->comptes.cmpt[0].profession,"maitre de conf");
         strcpy(argp->comptes.cmpt[0].pays,"france");
         strcpy(argp->comptes.cmpt[0].code_promo,"DS4T56");
+        argp->comptes.cmpt[0].nb_credit=7;
         argp->comptes.cmpt[0].connaissance = 1;
         argp->comptes.cmpt[0].abonnement_suivi.abonnements[1]= argp->abonnements.abonnements[0];
 
-    /*init collections*/
-    argp->collections.
-
-    /*init marques*/
-    arpg->marques.
 
     /*init commandes*/
-    arpg->commandes.
+    argp->commandes.nbCommande=0;
 
-
-
+    result=*argp;
 	return &result;
 }
 
-compte *
-create_account_1_svc(void *argp, struct svc_req *rqstp)
+compte * create_account_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static compte  result;
 
@@ -103,111 +118,126 @@ create_account_1_svc(void *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
+int * log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 {
-	static int  result = 0;
-    for(int i = 0; i < panoply.comptes.nbCompte; i++){
-        if((strcmp(identidiants.email,panoply.comptes.cmpt[i].email) == 0) && (strcmp(identidiants.mdp,panoply.comptes.cmpt[i].mdp) == 0)){
-            result = 1;
-        }
-    }
+	static int  result;
+
+	/*
+	 * insert server code here
+	 */
+
 	return &result;
 }
 
 int *
 list_all_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
 {
-	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
+	static int result = 0; //compteur de collection
+    result = argp->nb_different_collection;
 	return &result;
 }
+
 
 int *
-list_all_collection_clothes_1_svc(list_collection *argp, struct svc_req *rqstp)
+list_all_collection_clothes_1_svc(article_list *argp1, struct svc_req *rqstp)
 {
+    //returns the number of clothes or -1 if error
 	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    for(int i = 0; i < 150; i++){
+        argp1->article[i].collection_reference.id_collection;
+    }
 	return &result;
 }
 
 list_collection *
-add_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
+add_cloth_to_collection_1_svc(article *argp, struct svc_req *rqstp)
 {
+    // returns the list of all different collection
 	static list_collection  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    list_collection lcoll;
+    printf("Dans quelle collection voulez-vous l'ajouter ?\n");
+    for(int i = 0; i < lcoll.nb_different_collection; i++){
+        printf("n° : %d\n", i);
+    }
+    int num_coll_add; //numero de la collection où l'on va ajouter notre article
+    scanf("%d", &num_coll_add);
+    argp->collection_reference.id_collection = num_coll_add;
 	return &result;
 }
 
 list_collection *
-remove_cloth_to_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
+remove_cloth_to_collection_1_svc(article *argp, struct svc_req *rqstp)
 {
 	static list_collection  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    list_collection lcoll;
+    if(argp->collection_reference.id_collection == -1){
+        printf("L'article n'a pas de collection\n");
+    }
+    argp->collection_reference.id_collection = -1;
 	return &result;
 }
 
 int *
 list_type_abo_1_svc(list_abonnement *argp, struct svc_req *rqstp)
 {
+    //list every subscription -- returns the number of element or -1 if error
 	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    result = argp->nb_different_abonnement;
 	return &result;
 }
 
 compte *
 affecter_abo_client_1_svc(compte *argp, struct svc_req *rqstp)
 {
+    //set the subscription of an account -- returns an account
 	static compte  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    printf("Quelle abonnement voulez-vous choisir ?\n");
+    list_abonnement labo;
+    for(int i = 0; i < labo.nb_different_abonnement; i++){
+        printf("%d\n", i);
+    }
+    int num_abo;
+    scanf("%d", &num_abo);
+    argp->abonnement_suivi.nb_different_abonnement++;
+    int nb_abo_compte = argp->abonnement_suivi.nb_different_abonnement++;
+    argp->abonnement_suivi.abonnements[nb_abo_compte-1].id_abo = num_abo;
+    
 	return &result;
 }
 
 compte *
 modif_abo_1_svc(compte *argp, struct svc_req *rqstp)
 {
+    // edit account subsciption -- returns 0 or -1 if error
 	static compte  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    printf("Quelle abonnement voulez-vous modifier ?\n");
+    list_abonnement labo;
+    for(int i = 0; i < argp->abonnement_suivi.nb_different_abonnement; i++){
+        printf("%d\n", i);
+    }
+    int num_abo;
+    scanf("%d", &num_abo);
+    printf("Par quel abonnement voulez-vous le modifier ?\n");
+    for(int i = 0; i < labo.nb_different_abonnement; i++){
+        printf("%d\n", i);
+    }
+    int new_abo;
+    scanf("%d", &num_abo);
+    argp->abonnement_suivi.abonnements[num_abo].id_abo = new_abo;
 	return &result;
 }
 
 list_abonnement *
-add_subscription_1_svc(list_abonnement *argp, struct svc_req *rqstp)
+add_subscription_1_svc(abonnement *argp, struct svc_req *rqstp)
 {
+    // add a new subscription to the list -- returns a subscription
 	static list_abonnement  result;
-
-	/*
-	 * insert server code here
-	 */
-
+    result.nb_different_abonnement++;
+    int nb_abo = result.nb_different_abonnement++;
+    result.abonnements[nb_abo-1].id_abo = argp->id_abo;
+    strcpy(result.abonnements[nb_abo-1].type_abo,argp->type_abo);
+    result.abonnements[nb_abo-1].prix_abo = argp->prix_abo;
+    result.abonnements[nb_abo-1].credit_abo = argp->credit_abo;
 	return &result;
 }
 
@@ -215,10 +245,14 @@ int *
 display_abonnement_1_svc(abonnement *argp, struct svc_req *rqstp)
 {
 	static int  result;
-
-	/*
-	 * insert server code here
-	 */
+    list_account nb_compte_abonne;
+    for(int i = 0; i < nb_compte_abonne.nbCompte; i++){   //parcours du tab cmpt[250]
+        for(int j = 0; j < 30; j++){    //parcours du tab abonnements[30]
+            if(nb_compte_abonne.cmpt[i].abonnement_suivi.abonnements[j].id_abo == argp->id_abo){
+                result++;
+            }   
+        }
+    }
 
 	return &result;
 }
@@ -226,23 +260,52 @@ display_abonnement_1_svc(abonnement *argp, struct svc_req *rqstp)
 article_list *
 add_article_1_svc(article_list *argp, struct svc_req *rqstp)
 {
+    //add an article to the list of article -- returns the new list of article
 	static article_list  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
+    article new_article;
+    int id;
+    char nom[32];
+    int taille, pt_livraison, prix, id_collec, id_marq, credit, stock;
+    printf("Id de l'article ?\n");
+    scanf("%d",&id);
+    new_article.id_article = id; 
+    printf("Nom de l'article ?\n");
+    scanf("%s", nom);
+    strcpy(new_article.nom, nom);
+    printf("Tailles de l'article ? (20) \n");
+    for(int i = 0; i < 20; i++){
+        scanf("%d", &taille);
+        new_article.taille[i] = taille;
+    }
+    printf("Point de livraison de l'article ?\n");
+    scanf("%d", &pt_livraison);
+    new_article.pt_livraison = pt_livraison;
+    printf("Prix de location de l'article ?\n");
+    scanf("%d", &prix);
+    new_article.prix_location = prix;
+    printf("Reference de la collection de l'article ?\n");
+    scanf("%d", &id_collec);
+    new_article.collection_reference.id_collection = id_collec;
+    printf("Reference de la marque de l'article ?\n");
+    scanf("%d", &id_marq);
+    new_article.brand_reference.id_brand = id_marq;
+    printf("Crédit de l'article ?\n");
+    scanf("%d", &credit);
+    new_article.credit = credit;
+    printf("Stock de l'article ?\n");
+    scanf("%d", &stock);
+    new_article.stock = stock;
+    argp->nb_different_article++;
+    argp->article[argp->nb_different_article] = new_article;
+	return argp;
 }
 
 article_list *
 update_article_1_svc(article_list *argp, struct svc_req *rqstp)
 {
+    // update the list of articles -- returns the new list of article
 	static article_list  result;
-
-	/*
-	 * insert server code here
-	 */
+    
 
 	return &result;
 }
@@ -250,71 +313,124 @@ update_article_1_svc(article_list *argp, struct svc_req *rqstp)
 article_list *
 delete_article_1_svc(article_list *argp, struct svc_req *rqstp)
 {
+    // remove an article from the article list -- returns the new list of article
 	static article_list  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
+    int id;
+    printf("Quel article voulez-vous supprimer ? (ID)\n");
+    for(int i = 0; i < argp->nb_different_article; i++){
+        printf("ID : %d, Nom : %s\n", argp->article[i].id_article, argp->article[i].nom);
+    }
+    scanf("%d", &id);
+    if((id > argp->nb_different_article) || (id < 0)) { 
+        printf("L'ID sélectionné n'existe pas dans la liste\n");
+        return argp;
+    }
+    argp->nb_different_article--;
+    argp->article[id].id_article = -1;
+    strcpy(argp->article[id].nom," ");
+    for(int i = 0; i < 20; i++){
+        argp->article[id].taille[i] = -1;
+    }
+    argp->article[id].pt_livraison = 1;
+    argp->article[id].prix_location = -1;
+    //argp->article[id].collection_reference.id_collection
+    //argp->article[id].brand_reference
+    argp->article[id].credit = -1;
+    argp->article[id].stock = 0;
+	return argp;
 }
 
 int *
 fetch_article_1_svc(article_list *argp, struct svc_req *rqstp)
 {
+    //get a specified article -- returns 0 or -1 if error
 	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
+    int id;
+    int * returnMoinsUn = (int *) -1;
+    printf("Informations supplémentaires d'un article :\n");
+    for(int i = 0; i < argp->nb_different_article; i++){
+        printf("ID : %d, Nom : %s\n", argp->article[i].id_article, argp->article[i].nom);
+    }
+    scanf("%d", &id);
+    if((id > argp->nb_different_article) || (id < 0)) { 
+        printf("ERROR : L'ID sélectionné n'existe pas dans la liste\n");
+        return returnMoinsUn;
+    }
+    printf("Nom : %s\n",argp->article[id].nom);
+    for(int i = 0; i < 20; i++){
+        printf("Taille : %d\n", argp->article[id].taille[i]);
+    }
+    printf("N° point de livraison : %d\n", argp->article[id].pt_livraison);
+    printf("Prix location : %d\n", argp->article[id].prix_location);
+    printf("Nom de la collection : %s\n", argp->article[id].collection_reference.nom_collection);
+    printf("Nom de la marque : %s\n", argp->article[id].brand_reference.brand_name);
+    printf("Crédit : %d\n", argp->article[id].credit);
+    printf("Stock : %d\n", argp->article[id].stock);
+	return 0;
 }
 
 int *
 list_all_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 {
+    // list every brand -- returns 0 or -1 if error
 	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
+    for(int i = 0; i < argp->nb_different_brand; i++){
+        printf("Nom : %s\n", argp->brands[i].brand_name);
+    }
+	return 0;
 }
 
 list_brand *
 add_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 {
+    // add a brand to the list -- returns the new list of brand
 	static list_brand  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
+    int id;
+    char nom[32];
+    char description[3000];
+    argp->nb_different_brand++;
+    printf("ID de la marque : \n");
+    scanf("%d", &id);
+    argp->brands[argp->nb_different_brand-1].id_brand = id;
+    printf("Nom de la marque : \n");
+    scanf("%s", nom);
+    strcpy(argp->brands[argp->nb_different_brand-1].brand_name,nom);
+    printf("Description de la marque : \n");
+    scanf("%s", description);
+    strcpy(argp->brands[argp->nb_different_brand-1].description,description);
+    printf("Fin\n");
+	return argp;
 }
 
 list_brand *
 delete_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 {
+    // remove a brand from a list -- returns the new list of brand
 	static list_brand  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
+    int id;
+    printf("Quel marque supprimer ? (ID)\n");
+    for(int i = 0; i < argp->nb_different_brand; i++){
+        printf("ID : %d, Nom : %s\n",argp->brands[i].id_brand, argp->brands[i].brand_name);
+    }
+    printf("ID de la marque à supprimer : \n");
+    scanf("%d", &id);
+    for(int i = 0; i < argp->nb_different_brand; i++){
+        if(id == argp->brands[i].id_brand){
+            argp->brands[i].id_brand = -1;
+            strcpy(argp->brands[i].brand_name, " ");
+            strcpy(argp->brands[i].description, " ");
+        }
+    }
+    argp->nb_different_brand--;
+	return argp;
 }
 
 list_brand *
 update_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 {
+    // update a brand from a list -- returns the new list of brand
 	static list_brand  result;
-
-	/*
-	 * insert server code here
-	 */
+    
 
 	return &result;
 }
@@ -322,11 +438,9 @@ update_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 cart *
 add_to_cart_1_svc(cart *argp, struct svc_req *rqstp)
 {
+    //add an article to the cart -- returns the updated cart
 	static cart  result;
-
-	/*
-	 * insert server code here
-	 */
+    
 
 	return &result;
 }
