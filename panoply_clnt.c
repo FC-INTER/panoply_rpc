@@ -309,6 +309,21 @@ update_brand_1(list_brand *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
+void *
+list_all_cart_1(cart *argp, CLIENT *clnt)
+{
+	static char clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, LIST_ALL_CART,
+		(xdrproc_t) xdr_cart, (caddr_t) argp,
+		(xdrproc_t) xdr_void, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return ((void *)&clnt_res);
+}
+
 cart *
 add_to_cart_1(cart *argp, CLIENT *clnt)
 {
@@ -324,15 +339,15 @@ add_to_cart_1(cart *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
-cart *
-rent_1(cart *argp, CLIENT *clnt)
+panoply *
+rent_1(panoply *argp, CLIENT *clnt)
 {
-	static cart clnt_res;
+	static panoply clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, RENT,
-		(xdrproc_t) xdr_cart, (caddr_t) argp,
-		(xdrproc_t) xdr_cart, (caddr_t) &clnt_res,
+		(xdrproc_t) xdr_panoply, (caddr_t) argp,
+		(xdrproc_t) xdr_panoply, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}

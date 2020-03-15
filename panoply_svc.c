@@ -39,8 +39,9 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		list_brand add_brand_1_arg;
 		list_brand delete_brand_1_arg;
 		list_brand update_brand_1_arg;
+		cart list_all_cart_1_arg;
 		cart add_to_cart_1_arg;
-		cart rent_1_arg;
+		panoply rent_1_arg;
 		cart remove_from_cart_1_arg;
 	} argument;
 	char *result;
@@ -172,6 +173,12 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		local = (char *(*)(char *, struct svc_req *)) update_brand_1_svc;
 		break;
 
+	case LIST_ALL_CART:
+		_xdr_argument = (xdrproc_t) xdr_cart;
+		_xdr_result = (xdrproc_t) xdr_void;
+		local = (char *(*)(char *, struct svc_req *)) list_all_cart_1_svc;
+		break;
+
 	case ADD_TO_CART:
 		_xdr_argument = (xdrproc_t) xdr_cart;
 		_xdr_result = (xdrproc_t) xdr_cart;
@@ -179,8 +186,8 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		break;
 
 	case RENT:
-		_xdr_argument = (xdrproc_t) xdr_cart;
-		_xdr_result = (xdrproc_t) xdr_cart;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) rent_1_svc;
 		break;
 

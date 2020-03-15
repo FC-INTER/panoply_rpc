@@ -51,11 +51,13 @@ service_panoply_1(char *host)
 	list_brand  delete_brand_1_arg;
 	list_brand  *result_20;
 	list_brand  update_brand_1_arg;
-	cart  *result_21;
-	cart  add_to_cart_1_arg;
+	void  *result_21;
+	cart  list_all_cart_1_arg;
 	cart  *result_22;
-	cart  rent_1_arg;
-	cart  *result_23;
+	cart  add_to_cart_1_arg;
+	panoply  *result_23;
+	panoply  rent_1_arg;
+	cart  *result_24;
 	cart  remove_from_cart_1_arg;
 
 #ifndef	DEBUG
@@ -146,16 +148,20 @@ service_panoply_1(char *host)
 	if (result_20 == (list_brand *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_21 = add_to_cart_1(&add_to_cart_1_arg, clnt);
-	if (result_21 == (cart *) NULL) {
+	result_21 = list_all_cart_1(&list_all_cart_1_arg, clnt);
+	if (result_21 == (void *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_22 = rent_1(&rent_1_arg, clnt);
+	result_22 = add_to_cart_1(&add_to_cart_1_arg, clnt);
 	if (result_22 == (cart *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_23 = remove_from_cart_1(&remove_from_cart_1_arg, clnt);
-	if (result_23 == (cart *) NULL) {
+	result_23 = rent_1(&rent_1_arg, clnt);
+	if (result_23 == (panoply *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_24 = remove_from_cart_1(&remove_from_cart_1_arg, clnt);
+	if (result_24 == (cart *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 #ifndef	DEBUG

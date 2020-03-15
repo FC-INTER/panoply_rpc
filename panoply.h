@@ -228,13 +228,16 @@ extern  list_brand * delete_brand_1_svc(list_brand *, struct svc_req *);
 #define UPDATE_BRAND 20
 extern  list_brand * update_brand_1(list_brand *, CLIENT *);
 extern  list_brand * update_brand_1_svc(list_brand *, struct svc_req *);
-#define ADD_TO_CART 21
+#define LIST_ALL_CART 21
+extern  void * list_all_cart_1(cart *, CLIENT *);
+extern  void * list_all_cart_1_svc(cart *, struct svc_req *);
+#define ADD_TO_CART 22
 extern  cart * add_to_cart_1(cart *, CLIENT *);
 extern  cart * add_to_cart_1_svc(cart *, struct svc_req *);
-#define RENT 22
-extern  cart * rent_1(cart *, CLIENT *);
-extern  cart * rent_1_svc(cart *, struct svc_req *);
-#define REMOVE_FROM_CART 23
+#define RENT 23
+extern  panoply * rent_1(panoply *, CLIENT *);
+extern  panoply * rent_1_svc(panoply *, struct svc_req *);
+#define REMOVE_FROM_CART 24
 extern  cart * remove_from_cart_1(cart *, CLIENT *);
 extern  cart * remove_from_cart_1_svc(cart *, struct svc_req *);
 extern int service_panoply_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
@@ -300,13 +303,16 @@ extern  list_brand * delete_brand_1_svc();
 #define UPDATE_BRAND 20
 extern  list_brand * update_brand_1();
 extern  list_brand * update_brand_1_svc();
-#define ADD_TO_CART 21
+#define LIST_ALL_CART 21
+extern  void * list_all_cart_1();
+extern  void * list_all_cart_1_svc();
+#define ADD_TO_CART 22
 extern  cart * add_to_cart_1();
 extern  cart * add_to_cart_1_svc();
-#define RENT 22
-extern  cart * rent_1();
-extern  cart * rent_1_svc();
-#define REMOVE_FROM_CART 23
+#define RENT 23
+extern  panoply * rent_1();
+extern  panoply * rent_1_svc();
+#define REMOVE_FROM_CART 24
 extern  cart * remove_from_cart_1();
 extern  cart * remove_from_cart_1_svc();
 extern int service_panoply_1_freeresult ();

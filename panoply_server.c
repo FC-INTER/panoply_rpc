@@ -11,7 +11,7 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
 {
 	static panoply  result;
 
-    /*init abonnements*/
+	/*init abonnements*/
     argp->abonnements.nb_different_abonnement=4;
 
         /* ~Abonnement n°1~ */
@@ -104,10 +104,12 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
     argp->commandes.nbCommande=0;
 
     result=*argp;
+
 	return &result;
 }
 
-compte * create_account_1_svc(void *argp, struct svc_req *rqstp)
+compte *
+create_account_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static compte  result;
 
@@ -118,7 +120,8 @@ compte * create_account_1_svc(void *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int * log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
+int *
+log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 {
 	static int  result;
 
@@ -333,26 +336,72 @@ update_brand_1_svc(list_brand *argp, struct svc_req *rqstp)
 	return &result;
 }
 
+void *
+list_all_cart_1_svc(cart *argp, struct svc_req *rqstp)
+{
+	static char * result;
+
+	int i;
+
+	printf("Vos articles dans votre panier : \n");
+	for(i=0;i<argp->nbArticle-1;i++){
+		printf("	%d - %s \n",i,argp->list_article[i].nom);
+	}
+
+	return (void *) &result;
+}
+
 cart *
 add_to_cart_1_svc(cart *argp, struct svc_req *rqstp)
 {
 	static cart  result;
 
-	/*
-	 * insert server code here
-	 */
+	
 
 	return &result;
 }
 
-cart *
-rent_1_svc(cart *argp, struct svc_req *rqstp)
+panoply * rent_1_svc(panoply *argp, struct svc_req *rqstp)
 {
-	static cart  result;
+	static panoply  result;
 
-	/*
-	 * insert server code here
-	 */
+	char confirmation;
+	char payement;
+	int id,nb_article,i;
+
+
+	printf("---------------------------------------------------\n");
+	printf("Quel est votre identifiant ?\n");
+	scanf("%d",&id);
+	printf("Etes vous sur de vouloir louer ce(s) vêtement ? (y/n)\n");
+	scanf("%s",&confirmation);
+	if (confirmation == 'y'){
+		printf("Prix en euro : %d\n",argp->commandes.listCommande[id].list_article[id].prix_location);
+		printf("Prix jeton : %d\n",argp->commandes.listCommande[id].list_article[id].prix_location);
+		printf("Voulez vous payer en jeton ou en euros ? (j/e)\n");
+		scanf("%s",&payement);
+		if(payement == 'j'){
+			printf("Payement effectué");
+			nb_article=argp->commandes.listCommande[id].nbArticle;
+			for (i = 0 ; i<nb_article ; i++ ){
+				
+			}
+		}
+		else if (payement == 'e'){
+			
+		}
+		else{
+			printf("vous ne savez pas taper sur votre ordi èé");
+		}
+	}
+	else  if (confirmation == 'n') {
+		printf("Vous avez renoncé à la location");
+	}
+	else{
+		printf("vous ne savez pas taper sur votre ordi èé");
+	}
+	
+	printf("---------------------------------------------------\n");
 
 	return &result;
 }
@@ -361,10 +410,22 @@ cart *
 remove_from_cart_1_svc(cart *argp, struct svc_req *rqstp)
 {
 	static cart  result;
+	int indice;
+	struct article passage;
 
-	/*
-	 * insert server code here
-	 */
+
+	printf("---------------------------------------------------\n");
+	list_all_cart_1_svc(argp,rqstp);
+	printf("Indiquez l'indice de l'article à supprimer : \n");
+	scanf("%d",&indice);
+	for (int i =indice; argp->nbArticle-2; i++){
+		passage=argp->list_article[i];
+		argp->list_article[i]=argp->list_article[i+1];
+		argp->list_article[i+1]=passage;		
+	}	
+	argp->nbArticle--;
+	printf("Article supprimé\n");
+	printf("---------------------------------------------------\n");
 
 	return &result;
 }
