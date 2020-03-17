@@ -31,7 +31,6 @@ struct brand{
     int id_brand;
     char brand_name[32];
     char description[3000];
-     
 };
 
 struct list_brand{
@@ -105,7 +104,6 @@ struct compte {
 	int telephone;
 	char profession[64];
 	char pays[32];
-	char code_promo[6];
     int nb_credit;
 	enum connu_panoply connaissance;
     struct list_abonnement abonnement_suivi;
@@ -154,8 +152,8 @@ program SERVICE_PANOPLY{
         panoply INIT(panoply) = 1;                                          /*initialize the database                                    returns the initialised database */
 
         /* Account functions */
-        compte CREATE_ACCOUNT() = 2;                                        /*create an account and add it to the database               returns an account */
-        int LOG_IN(identifiants) = 3;                                       /*check if the log in exists                                 returns 0 or -1 if error */
+        compte CREATE_ACCOUNT(panoply) = 2;                                 /*create an account and add it to the database               returns an account */
+        int LOG_IN(identifiants) = 3;                                       /*check if the log in exists                                 returns the account id or -1 if error */
 
         /* Collection functions */
         int LIST_ALL_COLLECTION(list_collection) = 4;                       /*display every type of collection                           returns the number of element or -1 if error */

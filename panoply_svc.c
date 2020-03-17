@@ -21,6 +21,7 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
 		panoply init_1_arg;
+		panoply create_account_1_arg;
 		identifiants log_in_1_arg;
 		list_collection list_all_collection_1_arg;
 		article_list list_all_collection_clothes_1_arg;
@@ -60,7 +61,7 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		break;
 
 	case CREATE_ACCOUNT:
-		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_compte;
 		local = (char *(*)(char *, struct svc_req *)) create_account_1_svc;
 		break;

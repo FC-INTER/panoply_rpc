@@ -94,7 +94,6 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
         argp->comptes.cmpt[0].telephone = 655482746;
         strcpy(argp->comptes.cmpt[0].profession,"maitre de conf");
         strcpy(argp->comptes.cmpt[0].pays,"france");
-        strcpy(argp->comptes.cmpt[0].code_promo,"DS4T56");
         argp->comptes.cmpt[0].nb_credit=7;
         argp->comptes.cmpt[0].connaissance = 1;
         argp->comptes.cmpt[0].abonnement_suivi.abonnements[1]= argp->abonnements.abonnements[0];
@@ -107,17 +106,71 @@ init_1_svc(panoply *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-compte *
-create_account_1_svc(void *argp, struct svc_req *rqstp)
+compte * create_account_1_svc(panoply *argp, struct svc_req *rqstp)
 {
 	static compte  result;
 
+	printf("---------------------------------------------------\n");
+	printf("Entrez votre e mail \n");
+	scanf("%s",result.email.email);
+	printf("Entrez votre mot de passe\n");
+	scanf("%s",result.mdp.mdp);
+	printf("Entrez votre nom\n");
+	scanf("%s",result.nom);
+	printf("Entrez votre prenom\n");
+	scanf("%s",result.prenom);
+	printf("Entrez votre date de naissance, jour puis mois puis annee\n");
+	scanf("%d",&result.date_de_naissance.jour);
+	scanf("%d",&result.date_de_naissance.mois);
+	scanf("%d",&result.date_de_naissance.annee);
+	printf("Entrez votre numero de telephone\n");
+	scanf("%d",&result.telephone);
+	printf("Entrez votre profession\n");
+	scanf("%s",result.profession);
+	printf("Entrez votre pays\n");
+	scanf("%s",result.pays);
+    result.nb_credit=0;
 
+	printf("\n");
+	printf("Comment avez vous entendu parlé de nous");
+	enum connu_panoply connaissance;
+	for (int i=1 ; i<7;i++){
+		connaissance=i;
+		switch (connaissance)
+		{
+		case Par_une_amie:
+			printf("%d - Par_une_amie",i);
+			break;
+		case Une_recherche_en_ligne:
+			printf("%d - Une_recherche_en_ligne",i);
+			break;
+		case Un_article_de_presse:
+			printf("%d - Un_article_de_presse",i);
+			break;
+		case Aux_galerie_lafayette:
+			printf("%d - Aux_galerie_lafayette",i);
+			break;
+		case Sur_les_reseaux_sociaux:
+			printf("%d - Sur_les_reseaux_sociaux",i);
+			break;
+		case Autre:
+			printf("%d - Autre",i);
+			break;
+		
+		default:
+			printf("Erreur affichage des differents ebum");
+			break;
+		}
+	}
+	int indice_connaissance;
+	scanf("%d",&indice_connaissance);
+	result.connaissance=indice_connaissance;
+	printf("Fin création compte\n");
+	printf("---------------------------------------------------\n");
 	return &result;
 }
 
-int *
-log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
+int * log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 {
 	static int  result;
 
@@ -125,16 +178,14 @@ log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-int *
-list_all_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
+int * list_all_collection_1_svc(list_collection *argp, struct svc_req *rqstp)
 {
 	static int result = 0; //compteur de collection
     result = argp->nb_different_collection;
 	return &result;
 }
 
-int *
-list_all_collection_clothes_1_svc(article_list *argp, struct svc_req *rqstp)
+int * list_all_collection_clothes_1_svc(article_list *argp, struct svc_req *rqstp)
 {
     //returns the number of clothes or -1 if error
 	static int  result;

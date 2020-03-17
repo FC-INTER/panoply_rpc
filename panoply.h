@@ -123,7 +123,6 @@ struct compte {
 	int telephone;
 	char profession[64];
 	char pays[32];
-	char code_promo[6];
 	int nb_credit;
 	enum connu_panoply connaissance;
 	struct list_abonnement abonnement_suivi;
@@ -172,8 +171,8 @@ typedef struct panoply panoply;
 extern  panoply * init_1(panoply *, CLIENT *);
 extern  panoply * init_1_svc(panoply *, struct svc_req *);
 #define CREATE_ACCOUNT 2
-extern  compte * create_account_1(void *, CLIENT *);
-extern  compte * create_account_1_svc(void *, struct svc_req *);
+extern  compte * create_account_1(panoply *, CLIENT *);
+extern  compte * create_account_1_svc(panoply *, struct svc_req *);
 #define LOG_IN 3
 extern  int * log_in_1(identifiants *, CLIENT *);
 extern  int * log_in_1_svc(identifiants *, struct svc_req *);

@@ -310,9 +310,6 @@ xdr_compte (XDR *xdrs, compte *objp)
 	 if (!xdr_vector (xdrs, (char *)objp->pays, 32,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->code_promo, 6,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->nb_credit))
 		 return FALSE;
 	 if (!xdr_connu_panoply (xdrs, &objp->connaissance))

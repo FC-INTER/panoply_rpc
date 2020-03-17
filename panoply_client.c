@@ -6,13 +6,14 @@
 
 #include "panoply.h"
 
+panoply * base_de_donnee;
+
 
 void
 service_panoply_1(char *host)
 {
+	
 	CLIENT *clnt;
-	panoply  *result_1;
-	panoply  init_1_arg;
 	compte  *result_2;
 	char *create_account_1_arg;
 	int  *result_3;
@@ -68,22 +69,31 @@ service_panoply_1(char *host)
 	}
 #endif	/* DEBUG */
 
-	result_1 = init_1(&init_1_arg, clnt);
-	if (result_1 == (panoply *) NULL) {
+	base_de_donnee = init_1(base_de_donnee, clnt);
+	if (base_de_donnee == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_2 = create_account_1((void*)&create_account_1_arg, clnt);
+
+	result_2 = create_account_1(base_de_donnee, clnt);
 	if (result_2 == (compte *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	int nbCompte = base_de_donnee->comptes.nbCompte;
+	base_de_donnee->comptes.cmpt[nbCompte]= * result_2;
+	base_de_donnee->comptes.cmpt[nbCompte].id_compte=nbCompte;
+
 	result_3 = log_in_1(&log_in_1_arg, clnt);
 	if (result_3 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+
+	int id_logged;
+
 	result_4 = list_all_collection_1(&list_all_collection_1_arg, clnt);
 	if (result_4 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+
 	result_5 = list_all_collection_clothes_1(&list_all_collection_clothes_1_arg, clnt);
 	if (result_5 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
@@ -152,12 +162,12 @@ service_panoply_1(char *host)
 	if (result_21 == (void *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_22 = add_to_cart_1(&add_to_cart_1_arg, clnt);
+	base_de_donnee = add_to_cart_1(base_de_donnee, clnt);
 	if (result_22 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_23 = rent_1(&rent_1_arg, clnt);
-	if (result_23 == (panoply *) NULL) {
+	base_de_donnee = rent_1(base_de_donnee, clnt);
+	if (base_de_donnee == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	result_24 = remove_from_cart_1(&remove_from_cart_1_arg, clnt);
