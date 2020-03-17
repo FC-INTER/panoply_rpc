@@ -53,8 +53,8 @@ service_panoply_1(char *host)
 	list_brand  update_brand_1_arg;
 	void  *result_21;
 	cart  list_all_cart_1_arg;
-	cart  *result_22;
-	cart  add_to_cart_1_arg;
+	panoply  *result_22;
+	panoply  add_to_cart_1_arg;
 	panoply  *result_23;
 	panoply  rent_1_arg;
 	cart  *result_24;
@@ -153,7 +153,7 @@ service_panoply_1(char *host)
 		clnt_perror (clnt, "call failed");
 	}
 	result_22 = add_to_cart_1(&add_to_cart_1_arg, clnt);
-	if (result_22 == (cart *) NULL) {
+	if (result_22 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	result_23 = rent_1(&rent_1_arg, clnt);

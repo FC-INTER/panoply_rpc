@@ -184,9 +184,9 @@ program SERVICE_PANOPLY{
         list_brand UPDATE_BRAND(list_brand) = 20;                           /*update a brand from a list                                returns the new list of brand */
 
         /* Order function */
-        void LIST_ALL_CART(cart)=21;                                           /*list all article of your cart                             returne the updated cart*/
-        cart ADD_TO_CART(cart)= 22;                                         /*add an article to the cart                                returns the updated cart */
-        panoply RENT(panoply) = 23;                                               /*rent articles from cart                                   returns an empty cart */
+        void LIST_ALL_CART(cart)=21;                                        /*list all article of your cart                             returne the updated cart*/
+        panoply ADD_TO_CART(panoply)= 22;                                   /*add an article to the cart                                returns the updated cart */
+        panoply RENT(panoply) = 23;                                         /*rent articles from cart                                   returns an empty cart */
         cart REMOVE_FROM_CART(cart)= 24;                                    /*remove an article from the cart                           returns the updated cart */
 
 

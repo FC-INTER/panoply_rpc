@@ -232,8 +232,8 @@ extern  list_brand * update_brand_1_svc(list_brand *, struct svc_req *);
 extern  void * list_all_cart_1(cart *, CLIENT *);
 extern  void * list_all_cart_1_svc(cart *, struct svc_req *);
 #define ADD_TO_CART 22
-extern  cart * add_to_cart_1(cart *, CLIENT *);
-extern  cart * add_to_cart_1_svc(cart *, struct svc_req *);
+extern  panoply * add_to_cart_1(panoply *, CLIENT *);
+extern  panoply * add_to_cart_1_svc(panoply *, struct svc_req *);
 #define RENT 23
 extern  panoply * rent_1(panoply *, CLIENT *);
 extern  panoply * rent_1_svc(panoply *, struct svc_req *);
@@ -307,8 +307,8 @@ extern  list_brand * update_brand_1_svc();
 extern  void * list_all_cart_1();
 extern  void * list_all_cart_1_svc();
 #define ADD_TO_CART 22
-extern  cart * add_to_cart_1();
-extern  cart * add_to_cart_1_svc();
+extern  panoply * add_to_cart_1();
+extern  panoply * add_to_cart_1_svc();
 #define RENT 23
 extern  panoply * rent_1();
 extern  panoply * rent_1_svc();

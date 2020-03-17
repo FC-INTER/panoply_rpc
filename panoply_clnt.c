@@ -324,15 +324,15 @@ list_all_cart_1(cart *argp, CLIENT *clnt)
 	return ((void *)&clnt_res);
 }
 
-cart *
-add_to_cart_1(cart *argp, CLIENT *clnt)
+panoply *
+add_to_cart_1(panoply *argp, CLIENT *clnt)
 {
-	static cart clnt_res;
+	static panoply clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, ADD_TO_CART,
-		(xdrproc_t) xdr_cart, (caddr_t) argp,
-		(xdrproc_t) xdr_cart, (caddr_t) &clnt_res,
+		(xdrproc_t) xdr_panoply, (caddr_t) argp,
+		(xdrproc_t) xdr_panoply, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
