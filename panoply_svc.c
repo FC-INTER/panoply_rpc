@@ -23,13 +23,13 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		panoply init_1_arg;
 		identifiants log_in_1_arg;
 		list_collection list_all_collection_1_arg;
-		list_collection list_all_collection_clothes_1_arg;
-		list_collection add_cloth_to_collection_1_arg;
-		list_collection remove_cloth_to_collection_1_arg;
+		article_list list_all_collection_clothes_1_arg;
+		article add_cloth_to_collection_1_arg;
+		article remove_cloth_to_collection_1_arg;
 		list_abonnement list_type_abo_1_arg;
 		compte affecter_abo_client_1_arg;
 		compte modif_abo_1_arg;
-		list_abonnement add_subscription_1_arg;
+		abonnement add_subscription_1_arg;
 		abonnement display_abonnement_1_arg;
 		article_list add_article_1_arg;
 		article_list update_article_1_arg;
@@ -78,19 +78,19 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		break;
 
 	case LIST_ALL_COLLECTION_CLOTHES:
-		_xdr_argument = (xdrproc_t) xdr_list_collection;
+		_xdr_argument = (xdrproc_t) xdr_article_list;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) list_all_collection_clothes_1_svc;
 		break;
 
 	case ADD_CLOTH_TO_COLLECTION:
-		_xdr_argument = (xdrproc_t) xdr_list_collection;
+		_xdr_argument = (xdrproc_t) xdr_article;
 		_xdr_result = (xdrproc_t) xdr_list_collection;
 		local = (char *(*)(char *, struct svc_req *)) add_cloth_to_collection_1_svc;
 		break;
 
 	case REMOVE_CLOTH_TO_COLLECTION:
-		_xdr_argument = (xdrproc_t) xdr_list_collection;
+		_xdr_argument = (xdrproc_t) xdr_article;
 		_xdr_result = (xdrproc_t) xdr_list_collection;
 		local = (char *(*)(char *, struct svc_req *)) remove_cloth_to_collection_1_svc;
 		break;
@@ -114,7 +114,7 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		break;
 
 	case ADD_SUBSCRIPTION:
-		_xdr_argument = (xdrproc_t) xdr_list_abonnement;
+		_xdr_argument = (xdrproc_t) xdr_abonnement;
 		_xdr_result = (xdrproc_t) xdr_list_abonnement;
 		local = (char *(*)(char *, struct svc_req *)) add_subscription_1_svc;
 		break;

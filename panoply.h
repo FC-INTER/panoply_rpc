@@ -181,14 +181,14 @@ extern  int * log_in_1_svc(identifiants *, struct svc_req *);
 extern  int * list_all_collection_1(list_collection *, CLIENT *);
 extern  int * list_all_collection_1_svc(list_collection *, struct svc_req *);
 #define LIST_ALL_COLLECTION_CLOTHES 5
-extern  int * list_all_collection_clothes_1(list_collection *, CLIENT *);
-extern  int * list_all_collection_clothes_1_svc(list_collection *, struct svc_req *);
+extern  int * list_all_collection_clothes_1(article_list *, CLIENT *);
+extern  int * list_all_collection_clothes_1_svc(article_list *, struct svc_req *);
 #define ADD_CLOTH_TO_COLLECTION 6
-extern  list_collection * add_cloth_to_collection_1(list_collection *, CLIENT *);
-extern  list_collection * add_cloth_to_collection_1_svc(list_collection *, struct svc_req *);
+extern  list_collection * add_cloth_to_collection_1(article *, CLIENT *);
+extern  list_collection * add_cloth_to_collection_1_svc(article *, struct svc_req *);
 #define REMOVE_CLOTH_TO_COLLECTION 7
-extern  list_collection * remove_cloth_to_collection_1(list_collection *, CLIENT *);
-extern  list_collection * remove_cloth_to_collection_1_svc(list_collection *, struct svc_req *);
+extern  list_collection * remove_cloth_to_collection_1(article *, CLIENT *);
+extern  list_collection * remove_cloth_to_collection_1_svc(article *, struct svc_req *);
 #define LIST_TYPE_ABO 8
 extern  int * list_type_abo_1(list_abonnement *, CLIENT *);
 extern  int * list_type_abo_1_svc(list_abonnement *, struct svc_req *);
@@ -199,8 +199,8 @@ extern  compte * affecter_abo_client_1_svc(compte *, struct svc_req *);
 extern  compte * modif_abo_1(compte *, CLIENT *);
 extern  compte * modif_abo_1_svc(compte *, struct svc_req *);
 #define ADD_SUBSCRIPTION 11
-extern  list_abonnement * add_subscription_1(list_abonnement *, CLIENT *);
-extern  list_abonnement * add_subscription_1_svc(list_abonnement *, struct svc_req *);
+extern  list_abonnement * add_subscription_1(abonnement *, CLIENT *);
+extern  list_abonnement * add_subscription_1_svc(abonnement *, struct svc_req *);
 #define DISPLAY_ABONNEMENT 12
 extern  int * display_abonnement_1(abonnement *, CLIENT *);
 extern  int * display_abonnement_1_svc(abonnement *, struct svc_req *);

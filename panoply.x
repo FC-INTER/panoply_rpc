@@ -145,7 +145,6 @@ struct panoply {
     struct historiqueCommande commandes;
 };
 
-
 /*-------------------------------------------*/
 /*Fonctions*/
 
@@ -160,15 +159,15 @@ program SERVICE_PANOPLY{
 
         /* Collection functions */
         int LIST_ALL_COLLECTION(list_collection) = 4;                       /*display every type of collection                           returns the number of element or -1 if error */
-        int LIST_ALL_COLLECTION_CLOTHES(list_collection) = 5;               /*display every clothes for every type of collection         returns the number of clothes or -1 if error */
-        list_collection ADD_CLOTH_TO_COLLECTION(list_collection) = 6;       /*add an cloth to a collection                               returns the list of all different collection */
-        list_collection REMOVE_CLOTH_TO_COLLECTION(list_collection) = 7;    /*remove a cloth from a collection                           returns the list of all different collection */
+        int LIST_ALL_COLLECTION_CLOTHES(article_list) = 5;                  /*display every clothes for every type of collection         returns the number of clothes or -1 if error */
+        list_collection ADD_CLOTH_TO_COLLECTION(article) = 6;               /*add a cloth to a collection                               returns the list of all different collection */
+        list_collection REMOVE_CLOTH_TO_COLLECTION(article) = 7;            /*remove a cloth from a collection                           returns the list of all different collection */
 
         /* Subscription functions */        
         int LIST_TYPE_ABO(list_abonnement) = 8;                             /*list every subscription                                    returns the number of element or -1 if error */
         compte AFFECTER_ABO_CLIENT(compte) = 9;                             /*set the subscription of an account                         returns an account */
         compte MODIF_ABO(compte) = 10;                                      /*edit account subsciption                                   returns 0 or -1 if error */
-        list_abonnement ADD_SUBSCRIPTION(list_abonnement) = 11;             /*add a new subscription to the list                         returns a subscription */
+        list_abonnement ADD_SUBSCRIPTION(abonnement) = 11;                  /*add a new subscription to the list                         returns a subscription */
         int DISPLAY_ABONNEMENT(abonnement) = 12;                            /*display the number of subscription for every               returns 0 or -1 if error */
                                                                             /*subscription type 
         /* Article functions */

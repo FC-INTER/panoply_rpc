@@ -20,11 +20,11 @@ service_panoply_1(char *host)
 	int  *result_4;
 	list_collection  list_all_collection_1_arg;
 	int  *result_5;
-	list_collection  list_all_collection_clothes_1_arg;
+	article_list  list_all_collection_clothes_1_arg;
 	list_collection  *result_6;
-	list_collection  add_cloth_to_collection_1_arg;
+	article  add_cloth_to_collection_1_arg;
 	list_collection  *result_7;
-	list_collection  remove_cloth_to_collection_1_arg;
+	article  remove_cloth_to_collection_1_arg;
 	int  *result_8;
 	list_abonnement  list_type_abo_1_arg;
 	compte  *result_9;
@@ -32,7 +32,7 @@ service_panoply_1(char *host)
 	compte  *result_10;
 	compte  modif_abo_1_arg;
 	list_abonnement  *result_11;
-	list_abonnement  add_subscription_1_arg;
+	abonnement  add_subscription_1_arg;
 	int  *result_12;
 	abonnement  display_abonnement_1_arg;
 	article_list  *result_13;
