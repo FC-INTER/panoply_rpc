@@ -82,60 +82,60 @@ service_panoply_1(char *host)
 	base_de_donnee->comptes.cmpt[nbCompte]= * result_2;
 	base_de_donnee->comptes.cmpt[nbCompte].id_compte=nbCompte;
 
-	result_3 = log_in_1(&log_in_1_arg, clnt);
+	result_3 = log_in_1(&base_de_donnee	, clnt);
 	if (result_3 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 
 	int id_logged;
 
-	result_4 = list_all_collection_1(&list_all_collection_1_arg, clnt);
+	result_4 = list_all_collection_1(&base_de_donnee, clnt);
 	if (result_4 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 
-	result_5 = list_all_collection_clothes_1(&list_all_collection_clothes_1_arg, clnt);
+	result_5 = list_all_collection_clothes_1(&base_de_donnee, clnt);
 	if (result_5 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_6 = add_cloth_to_collection_1(&add_cloth_to_collection_1_arg, clnt);
-	if (result_6 == (list_collection *) NULL) {
+	base_de_donnee = add_cloth_to_collection_1(&base_de_donnee, clnt);
+	if (result_6 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_7 = remove_cloth_to_collection_1(&remove_cloth_to_collection_1_arg, clnt);
-	if (result_7 == (list_collection *) NULL) {
+	base_de_donnee = remove_cloth_to_collection_1(&base_de_donnee, clnt);
+	if (result_7 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	result_8 = list_type_abo_1(&list_type_abo_1_arg, clnt);
 	if (result_8 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_9 = affecter_abo_client_1(&affecter_abo_client_1_arg, clnt);
-	if (result_9 == (compte *) NULL) {
+	base_de_donnee = affecter_abo_client_1(&affecter_abo_client_1_arg, clnt);
+	if (result_9 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_10 = modif_abo_1(&modif_abo_1_arg, clnt);
-	if (result_10 == (compte *) NULL) {
+	base_de_donnee = modif_abo_1(&modif_abo_1_arg, clnt);
+	if (result_10 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_11 = add_subscription_1(&add_subscription_1_arg, clnt);
-	if (result_11 == (list_abonnement *) NULL) {
+	base_de_donnee = add_subscription_1(&add_subscription_1_arg, clnt);
+	if (result_11 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	result_12 = display_abonnement_1(&display_abonnement_1_arg, clnt);
 	if (result_12 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_13 = add_article_1(&add_article_1_arg, clnt);
-	if (result_13 == (article_list *) NULL) {
+	base_de_donnee = add_article_1(&add_article_1_arg, clnt);
+	if (result_13 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_14 = update_article_1(&update_article_1_arg, clnt);
-	if (result_14 == (article_list *) NULL) {
+	base_de_donnee = update_article_1(&update_article_1_arg, clnt);
+	if (result_14 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_15 = delete_article_1(&delete_article_1_arg, clnt);
-	if (result_15 == (article_list *) NULL) {
+	base_de_donnee = delete_article_1(&delete_article_1_arg, clnt);
+	if (result_15 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	result_16 = fetch_article_1(&fetch_article_1_arg, clnt);
@@ -146,16 +146,16 @@ service_panoply_1(char *host)
 	if (result_17 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_18 = add_brand_1(&add_brand_1_arg, clnt);
-	if (result_18 == (list_brand *) NULL) {
+	base_de_donnee = add_brand_1(&add_brand_1_arg, clnt);
+	if (result_18 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_19 = delete_brand_1(&delete_brand_1_arg, clnt);
-	if (result_19 == (list_brand *) NULL) {
+	base_de_donnee = delete_brand_1(&delete_brand_1_arg, clnt);
+	if (result_19 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_20 = update_brand_1(&update_brand_1_arg, clnt);
-	if (result_20 == (list_brand *) NULL) {
+	base_de_donnee = update_brand_1(&update_brand_1_arg, clnt);
+	if (result_20 == (panoply *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	result_21 = list_all_cart_1(&list_all_cart_1_arg, clnt);

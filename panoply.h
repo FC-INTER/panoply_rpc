@@ -174,59 +174,59 @@ extern  panoply * init_1_svc(panoply *, struct svc_req *);
 extern  compte * create_account_1(panoply *, CLIENT *);
 extern  compte * create_account_1_svc(panoply *, struct svc_req *);
 #define LOG_IN 3
-extern  int * log_in_1(identifiants *, CLIENT *);
-extern  int * log_in_1_svc(identifiants *, struct svc_req *);
+extern  int * log_in_1(panoply *, CLIENT *);
+extern  int * log_in_1_svc(panoply *, struct svc_req *);
 #define LIST_ALL_COLLECTION 4
-extern  int * list_all_collection_1(list_collection *, CLIENT *);
-extern  int * list_all_collection_1_svc(list_collection *, struct svc_req *);
+extern  int * list_all_collection_1(panoply *, CLIENT *);
+extern  int * list_all_collection_1_svc(panoply *, struct svc_req *);
 #define LIST_ALL_COLLECTION_CLOTHES 5
-extern  int * list_all_collection_clothes_1(article_list *, CLIENT *);
-extern  int * list_all_collection_clothes_1_svc(article_list *, struct svc_req *);
+extern  int * list_all_collection_clothes_1(panoply *, CLIENT *);
+extern  int * list_all_collection_clothes_1_svc(panoply *, struct svc_req *);
 #define ADD_CLOTH_TO_COLLECTION 6
-extern  list_collection * add_cloth_to_collection_1(article *, CLIENT *);
-extern  list_collection * add_cloth_to_collection_1_svc(article *, struct svc_req *);
+extern  panoply * add_cloth_to_collection_1(panoply *, CLIENT *);
+extern  panoply * add_cloth_to_collection_1_svc(panoply *, struct svc_req *);
 #define REMOVE_CLOTH_TO_COLLECTION 7
-extern  list_collection * remove_cloth_to_collection_1(article *, CLIENT *);
-extern  list_collection * remove_cloth_to_collection_1_svc(article *, struct svc_req *);
+extern  panoply * remove_cloth_to_collection_1(panoply *, CLIENT *);
+extern  panoply * remove_cloth_to_collection_1_svc(panoply *, struct svc_req *);
 #define LIST_TYPE_ABO 8
-extern  int * list_type_abo_1(list_abonnement *, CLIENT *);
-extern  int * list_type_abo_1_svc(list_abonnement *, struct svc_req *);
+extern  int * list_type_abo_1(panoply *, CLIENT *);
+extern  int * list_type_abo_1_svc(panoply *, struct svc_req *);
 #define AFFECTER_ABO_CLIENT 9
-extern  compte * affecter_abo_client_1(compte *, CLIENT *);
-extern  compte * affecter_abo_client_1_svc(compte *, struct svc_req *);
+extern  panoply * affecter_abo_client_1(panoply *, CLIENT *);
+extern  panoply * affecter_abo_client_1_svc(panoply *, struct svc_req *);
 #define MODIF_ABO 10
-extern  compte * modif_abo_1(compte *, CLIENT *);
-extern  compte * modif_abo_1_svc(compte *, struct svc_req *);
+extern  panoply * modif_abo_1(panoply *, CLIENT *);
+extern  panoply * modif_abo_1_svc(panoply *, struct svc_req *);
 #define ADD_SUBSCRIPTION 11
-extern  list_abonnement * add_subscription_1(abonnement *, CLIENT *);
-extern  list_abonnement * add_subscription_1_svc(abonnement *, struct svc_req *);
+extern  panoply * add_subscription_1(panoply *, CLIENT *);
+extern  panoply * add_subscription_1_svc(panoply *, struct svc_req *);
 #define DISPLAY_ABONNEMENT 12
-extern  int * display_abonnement_1(abonnement *, CLIENT *);
-extern  int * display_abonnement_1_svc(abonnement *, struct svc_req *);
+extern  int * display_abonnement_1(panoply *, CLIENT *);
+extern  int * display_abonnement_1_svc(panoply *, struct svc_req *);
 #define ADD_ARTICLE 13
-extern  article_list * add_article_1(article_list *, CLIENT *);
-extern  article_list * add_article_1_svc(article_list *, struct svc_req *);
+extern  panoply * add_article_1(panoply *, CLIENT *);
+extern  panoply * add_article_1_svc(panoply *, struct svc_req *);
 #define UPDATE_ARTICLE 14
-extern  article_list * update_article_1(article_list *, CLIENT *);
-extern  article_list * update_article_1_svc(article_list *, struct svc_req *);
+extern  panoply * update_article_1(panoply *, CLIENT *);
+extern  panoply * update_article_1_svc(panoply *, struct svc_req *);
 #define DELETE_ARTICLE 15
-extern  article_list * delete_article_1(article_list *, CLIENT *);
-extern  article_list * delete_article_1_svc(article_list *, struct svc_req *);
+extern  panoply * delete_article_1(panoply *, CLIENT *);
+extern  panoply * delete_article_1_svc(panoply *, struct svc_req *);
 #define FETCH_ARTICLE 16
-extern  int * fetch_article_1(article_list *, CLIENT *);
-extern  int * fetch_article_1_svc(article_list *, struct svc_req *);
+extern  int * fetch_article_1(panoply *, CLIENT *);
+extern  int * fetch_article_1_svc(panoply *, struct svc_req *);
 #define LIST_ALL_BRAND 17
-extern  int * list_all_brand_1(list_brand *, CLIENT *);
-extern  int * list_all_brand_1_svc(list_brand *, struct svc_req *);
+extern  int * list_all_brand_1(panoply *, CLIENT *);
+extern  int * list_all_brand_1_svc(panoply *, struct svc_req *);
 #define ADD_BRAND 18
-extern  list_brand * add_brand_1(list_brand *, CLIENT *);
-extern  list_brand * add_brand_1_svc(list_brand *, struct svc_req *);
+extern  panoply * add_brand_1(panoply *, CLIENT *);
+extern  panoply * add_brand_1_svc(panoply *, struct svc_req *);
 #define DELETE_BRAND 19
-extern  list_brand * delete_brand_1(list_brand *, CLIENT *);
-extern  list_brand * delete_brand_1_svc(list_brand *, struct svc_req *);
+extern  panoply * delete_brand_1(panoply *, CLIENT *);
+extern  panoply * delete_brand_1_svc(panoply *, struct svc_req *);
 #define UPDATE_BRAND 20
-extern  list_brand * update_brand_1(list_brand *, CLIENT *);
-extern  list_brand * update_brand_1_svc(list_brand *, struct svc_req *);
+extern  panoply * update_brand_1(panoply *, CLIENT *);
+extern  panoply * update_brand_1_svc(panoply *, struct svc_req *);
 #define LIST_ALL_CART 21
 extern  void * list_all_cart_1(cart *, CLIENT *);
 extern  void * list_all_cart_1_svc(cart *, struct svc_req *);
@@ -258,35 +258,35 @@ extern  int * list_all_collection_1_svc();
 extern  int * list_all_collection_clothes_1();
 extern  int * list_all_collection_clothes_1_svc();
 #define ADD_CLOTH_TO_COLLECTION 6
-extern  list_collection * add_cloth_to_collection_1();
-extern  list_collection * add_cloth_to_collection_1_svc();
+extern  panoply * add_cloth_to_collection_1();
+extern  panoply * add_cloth_to_collection_1_svc();
 #define REMOVE_CLOTH_TO_COLLECTION 7
-extern  list_collection * remove_cloth_to_collection_1();
-extern  list_collection * remove_cloth_to_collection_1_svc();
+extern  panoply * remove_cloth_to_collection_1();
+extern  panoply * remove_cloth_to_collection_1_svc();
 #define LIST_TYPE_ABO 8
 extern  int * list_type_abo_1();
 extern  int * list_type_abo_1_svc();
 #define AFFECTER_ABO_CLIENT 9
-extern  compte * affecter_abo_client_1();
-extern  compte * affecter_abo_client_1_svc();
+extern  panoply * affecter_abo_client_1();
+extern  panoply * affecter_abo_client_1_svc();
 #define MODIF_ABO 10
-extern  compte * modif_abo_1();
-extern  compte * modif_abo_1_svc();
+extern  panoply * modif_abo_1();
+extern  panoply * modif_abo_1_svc();
 #define ADD_SUBSCRIPTION 11
-extern  list_abonnement * add_subscription_1();
-extern  list_abonnement * add_subscription_1_svc();
+extern  panoply * add_subscription_1();
+extern  panoply * add_subscription_1_svc();
 #define DISPLAY_ABONNEMENT 12
 extern  int * display_abonnement_1();
 extern  int * display_abonnement_1_svc();
 #define ADD_ARTICLE 13
-extern  article_list * add_article_1();
-extern  article_list * add_article_1_svc();
+extern  panoply * add_article_1();
+extern  panoply * add_article_1_svc();
 #define UPDATE_ARTICLE 14
-extern  article_list * update_article_1();
-extern  article_list * update_article_1_svc();
+extern  panoply * update_article_1();
+extern  panoply * update_article_1_svc();
 #define DELETE_ARTICLE 15
-extern  article_list * delete_article_1();
-extern  article_list * delete_article_1_svc();
+extern  panoply * delete_article_1();
+extern  panoply * delete_article_1_svc();
 #define FETCH_ARTICLE 16
 extern  int * fetch_article_1();
 extern  int * fetch_article_1_svc();
@@ -294,14 +294,14 @@ extern  int * fetch_article_1_svc();
 extern  int * list_all_brand_1();
 extern  int * list_all_brand_1_svc();
 #define ADD_BRAND 18
-extern  list_brand * add_brand_1();
-extern  list_brand * add_brand_1_svc();
+extern  panoply * add_brand_1();
+extern  panoply * add_brand_1_svc();
 #define DELETE_BRAND 19
-extern  list_brand * delete_brand_1();
-extern  list_brand * delete_brand_1_svc();
+extern  panoply * delete_brand_1();
+extern  panoply * delete_brand_1_svc();
 #define UPDATE_BRAND 20
-extern  list_brand * update_brand_1();
-extern  list_brand * update_brand_1_svc();
+extern  panoply * update_brand_1();
+extern  panoply * update_brand_1_svc();
 #define LIST_ALL_CART 21
 extern  void * list_all_cart_1();
 extern  void * list_all_cart_1_svc();

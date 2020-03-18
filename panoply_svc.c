@@ -22,24 +22,24 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 	union {
 		panoply init_1_arg;
 		panoply create_account_1_arg;
-		identifiants log_in_1_arg;
-		list_collection list_all_collection_1_arg;
-		article_list list_all_collection_clothes_1_arg;
-		article add_cloth_to_collection_1_arg;
-		article remove_cloth_to_collection_1_arg;
-		list_abonnement list_type_abo_1_arg;
-		compte affecter_abo_client_1_arg;
-		compte modif_abo_1_arg;
-		abonnement add_subscription_1_arg;
-		abonnement display_abonnement_1_arg;
-		article_list add_article_1_arg;
-		article_list update_article_1_arg;
-		article_list delete_article_1_arg;
-		article_list fetch_article_1_arg;
-		list_brand list_all_brand_1_arg;
-		list_brand add_brand_1_arg;
-		list_brand delete_brand_1_arg;
-		list_brand update_brand_1_arg;
+		panoply log_in_1_arg;
+		panoply list_all_collection_1_arg;
+		panoply list_all_collection_clothes_1_arg;
+		panoply add_cloth_to_collection_1_arg;
+		panoply remove_cloth_to_collection_1_arg;
+		panoply list_type_abo_1_arg;
+		panoply affecter_abo_client_1_arg;
+		panoply modif_abo_1_arg;
+		panoply add_subscription_1_arg;
+		panoply display_abonnement_1_arg;
+		panoply add_article_1_arg;
+		panoply update_article_1_arg;
+		panoply delete_article_1_arg;
+		panoply fetch_article_1_arg;
+		panoply list_all_brand_1_arg;
+		panoply add_brand_1_arg;
+		panoply delete_brand_1_arg;
+		panoply update_brand_1_arg;
 		cart list_all_cart_1_arg;
 		panoply add_to_cart_1_arg;
 		panoply rent_1_arg;
@@ -67,110 +67,110 @@ service_panoply_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		break;
 
 	case LOG_IN:
-		_xdr_argument = (xdrproc_t) xdr_identifiants;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) log_in_1_svc;
 		break;
 
 	case LIST_ALL_COLLECTION:
-		_xdr_argument = (xdrproc_t) xdr_list_collection;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) list_all_collection_1_svc;
 		break;
 
 	case LIST_ALL_COLLECTION_CLOTHES:
-		_xdr_argument = (xdrproc_t) xdr_article_list;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) list_all_collection_clothes_1_svc;
 		break;
 
 	case ADD_CLOTH_TO_COLLECTION:
-		_xdr_argument = (xdrproc_t) xdr_article;
-		_xdr_result = (xdrproc_t) xdr_list_collection;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) add_cloth_to_collection_1_svc;
 		break;
 
 	case REMOVE_CLOTH_TO_COLLECTION:
-		_xdr_argument = (xdrproc_t) xdr_article;
-		_xdr_result = (xdrproc_t) xdr_list_collection;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) remove_cloth_to_collection_1_svc;
 		break;
 
 	case LIST_TYPE_ABO:
-		_xdr_argument = (xdrproc_t) xdr_list_abonnement;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) list_type_abo_1_svc;
 		break;
 
 	case AFFECTER_ABO_CLIENT:
-		_xdr_argument = (xdrproc_t) xdr_compte;
-		_xdr_result = (xdrproc_t) xdr_compte;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) affecter_abo_client_1_svc;
 		break;
 
 	case MODIF_ABO:
-		_xdr_argument = (xdrproc_t) xdr_compte;
-		_xdr_result = (xdrproc_t) xdr_compte;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) modif_abo_1_svc;
 		break;
 
 	case ADD_SUBSCRIPTION:
-		_xdr_argument = (xdrproc_t) xdr_abonnement;
-		_xdr_result = (xdrproc_t) xdr_list_abonnement;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) add_subscription_1_svc;
 		break;
 
 	case DISPLAY_ABONNEMENT:
-		_xdr_argument = (xdrproc_t) xdr_abonnement;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) display_abonnement_1_svc;
 		break;
 
 	case ADD_ARTICLE:
-		_xdr_argument = (xdrproc_t) xdr_article_list;
-		_xdr_result = (xdrproc_t) xdr_article_list;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) add_article_1_svc;
 		break;
 
 	case UPDATE_ARTICLE:
-		_xdr_argument = (xdrproc_t) xdr_article_list;
-		_xdr_result = (xdrproc_t) xdr_article_list;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) update_article_1_svc;
 		break;
 
 	case DELETE_ARTICLE:
-		_xdr_argument = (xdrproc_t) xdr_article_list;
-		_xdr_result = (xdrproc_t) xdr_article_list;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) delete_article_1_svc;
 		break;
 
 	case FETCH_ARTICLE:
-		_xdr_argument = (xdrproc_t) xdr_article_list;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) fetch_article_1_svc;
 		break;
 
 	case LIST_ALL_BRAND:
-		_xdr_argument = (xdrproc_t) xdr_list_brand;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) list_all_brand_1_svc;
 		break;
 
 	case ADD_BRAND:
-		_xdr_argument = (xdrproc_t) xdr_list_brand;
-		_xdr_result = (xdrproc_t) xdr_list_brand;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) add_brand_1_svc;
 		break;
 
 	case DELETE_BRAND:
-		_xdr_argument = (xdrproc_t) xdr_list_brand;
-		_xdr_result = (xdrproc_t) xdr_list_brand;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) delete_brand_1_svc;
 		break;
 
 	case UPDATE_BRAND:
-		_xdr_argument = (xdrproc_t) xdr_list_brand;
-		_xdr_result = (xdrproc_t) xdr_list_brand;
+		_xdr_argument = (xdrproc_t) xdr_panoply;
+		_xdr_result = (xdrproc_t) xdr_panoply;
 		local = (char *(*)(char *, struct svc_req *)) update_brand_1_svc;
 		break;
 

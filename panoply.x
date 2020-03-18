@@ -153,32 +153,32 @@ program SERVICE_PANOPLY{
 
         /* Account functions */
         compte CREATE_ACCOUNT(panoply) = 2;                                 /*create an account and add it to the database               returns an account */
-        int LOG_IN(identifiants) = 3;                                       /*check if the log in exists                                 returns the account id or -1 if error */
+        int LOG_IN(panoply) = 3;                                            /*check if the log in exists                                 returns the account id or -1 if error */
 
         /* Collection functions */
-        int LIST_ALL_COLLECTION(list_collection) = 4;                       /*display every type of collection                           returns the number of element or -1 if error */
-        int LIST_ALL_COLLECTION_CLOTHES(article_list) = 5;                  /*display every clothes for every type of collection         returns the number of clothes or -1 if error */
-        list_collection ADD_CLOTH_TO_COLLECTION(article) = 6;               /*add a cloth to a collection                               returns the list of all different collection */
-        list_collection REMOVE_CLOTH_TO_COLLECTION(article) = 7;            /*remove a cloth from a collection                           returns the list of all different collection */
+        int LIST_ALL_COLLECTION(panoply) = 4;                               /*display every type of collection                           returns the number of element or -1 if error */
+        int LIST_ALL_COLLECTION_CLOTHES(panoply) = 5;                       /*display every clothes for every type of collection         returns the number of clothes or -1 if error */
+        panoply ADD_CLOTH_TO_COLLECTION(panoply) = 6;                       /*add a cloth to a collection                               returns the list of all different collection */
+        panoply REMOVE_CLOTH_TO_COLLECTION(panoply) = 7;                    /*remove a cloth from a collection                           returns the list of all different collection */
 
         /* Subscription functions */        
-        int LIST_TYPE_ABO(list_abonnement) = 8;                             /*list every subscription                                    returns the number of element or -1 if error */
-        compte AFFECTER_ABO_CLIENT(compte) = 9;                             /*set the subscription of an account                         returns an account */
-        compte MODIF_ABO(compte) = 10;                                      /*edit account subsciption                                   returns 0 or -1 if error */
-        list_abonnement ADD_SUBSCRIPTION(abonnement) = 11;                  /*add a new subscription to the list                         returns a subscription */
-        int DISPLAY_ABONNEMENT(abonnement) = 12;                            /*display the number of subscription for every               returns 0 or -1 if error */
+        int LIST_TYPE_ABO(panoply) = 8;                                     /*list every subscription                                    returns the number of element or -1 if error */
+        panoply AFFECTER_ABO_CLIENT(panoply) = 9;                           /*set the subscription of an account                         returns an account */
+        panoply MODIF_ABO(panoply) = 10;                                    /*edit account subsciption                                   returns 0 or -1 if error */
+        panoply ADD_SUBSCRIPTION(panoply) = 11;                             /*add a new subscription to the list                         returns a subscription */
+        int DISPLAY_ABONNEMENT(panoply) = 12;                               /*display the number of subscription for every               returns 0 or -1 if error */
                                                                             /*subscription type 
         /* Article functions */
-        article_list ADD_ARTICLE(article_list) = 13;                        /*add an article to the list of article                     returns the new list of article */
-        article_list UPDATE_ARTICLE(article_list) = 14;                     /*update the list of articles                               returns the new list of article */                        
-        article_list DELETE_ARTICLE(article_list) = 15;                     /*remove an article from the article list                   returns the new list of article */
-        int FETCH_ARTICLE(article_list) = 16;                               /*get a specified article                                   returns 0 or -1 if error */
+        panoply ADD_ARTICLE(panoply) = 13;                                  /*add an article to the list of article                     returns the new list of article */
+        panoply UPDATE_ARTICLE(panoply) = 14;                               /*update the list of articles                               returns the new list of article */                        
+        panoply DELETE_ARTICLE(panoply) = 15;                               /*remove an article from the article list                   returns the new list of article */
+        int FETCH_ARTICLE(panoply) = 16;                                    /*get a specified article                                   returns 0 or -1 if error */
 
         /* Brand function */
-        int LIST_ALL_BRAND(list_brand) = 17;                                /*list every brand                                          returns 0 or -1 if error */
-        list_brand ADD_BRAND(list_brand) = 18;                              /*add a brand to the list                                   returns the new list of brand */
-        list_brand DELETE_BRAND(list_brand) = 19;                           /*remove a brand from a list                                returns the new list of brand */ 
-        list_brand UPDATE_BRAND(list_brand) = 20;                           /*update a brand from a list                                returns the new list of brand */
+        int LIST_ALL_BRAND(panoply) = 17;                                   /*list every brand                                          returns 0 or -1 if error */
+        panoply ADD_BRAND(panoply) = 18;                                    /*add a brand to the list                                   returns the new list of brand */
+        panoply DELETE_BRAND(panoply) = 19;                                 /*remove a brand from a list                                returns the new list of brand */ 
+        panoply UPDATE_BRAND(panoply) = 20;                                 /*update a brand from a list                                returns the new list of brand */
 
         /* Order function */
         void LIST_ALL_CART(cart)=21;                                        /*list all article of your cart                             returne the updated cart*/
