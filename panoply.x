@@ -147,7 +147,30 @@ struct panoply {
 /*Fonctions*/
 
 program SERVICE_PANOPLY{
-    version SERVICE_VERSION_1 {
+    version SERVICE_VERSION_1{
+        panoply INIT() = 1;
+        compte CREATE_ACCOUNT(panoply) = 2;
+        int LOG_IN(identifiants) = 3;
+        int LIST_TYPE_ABO(list_abonnement) = 8;
+        compte AFFECTER_ABO_CLIENT(compte) = 9;
+        int LIST_ALL_COLLECTION(list_collection) = 4;
+        int LIST_ALL_COLLECTION_CLOTHES(article_list) = 5;
+        panoply ADD_TO_CART(article)= 22; 
+        
+    }
+    
+    version SERVICE_VERSION_2{
+        panoply INIT() = 1;
+        compte CREATE_ACCOUNT(panoply) = 2;
+        int LOG_IN(identifiants) = 3;
+        int LIST_ALL_COLLECTION(list_collection) = 4;
+        list_collection ADD_CLOTH_TO_COLLECTION(article) = 6;
+        list_collection REMOVE_CLOTH_TO_COLLECTION(article) = 7;
+        int DISPLAY_ABONNEMENT(abonnement) = 12;
+
+    }
+
+    version SERVICE_VERSION_3 {
         /* Function that initialize the database */
         panoply INIT(panoply) = 1;                                          /*initialize the database                                    returns the initialised database */
 
@@ -187,5 +210,5 @@ program SERVICE_PANOPLY{
         cart REMOVE_FROM_CART(cart)= 24;                                    /*remove an article from the cart                           returns the updated cart */
 
 
-    } = 1;
+    } = 3;
 } = 0x20646464;

@@ -5,6 +5,7 @@
  */
 
 #include "panoply.h"
+panoply * base_de_donnee;
 
 panoply *
 init_1_svc(panoply *argp, struct svc_req *rqstp)
@@ -173,8 +174,23 @@ compte * create_account_1_svc(panoply *argp, struct svc_req *rqstp)
 int * log_in_1_svc(identifiants *argp, struct svc_req *rqstp)
 {
 	static int  result;
+	char mail_connexion[128];
+	char mdp[32];
+	int id_retour=-1;
+	printf("---------------------------------------------------\n");
+	printf("Entrez votre adresse mail :\n");
+	scanf("%s",mail_connexion);
+	printf("Entrez votre mot de passe :\n");
+	scanf("%s",mdp);	
 
-
+	for (int i=0; i<argp->comptes.nbCompte-1;i++){
+		if (strcmp(base_de_donnee->comptes.cmpt[i].email.email,mail_connexion)==0 && strcmp(base_de_donnee->comptes.cmpt[i].mdp,mdp)==0){
+			id_retour=i;
+			printf("Connexion réussie");
+		}
+	}
+	printf("---------------------------------------------------\n");
+	result=id_retour;
 	return &result;
 }
 
